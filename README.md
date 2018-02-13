@@ -50,13 +50,24 @@ source venv/bin/activate
 ```
 cd fygroupproject
 pip install flask
+pip install sqlalchemy
 ```
+8. 
+```
+cd fullstack_template/server
+python login.py
+```
+
+--------------------
+IGNORE THIS
+
 8. Start server, cd to server directory "python server.py"
 ```
 cd fullstack_template/server
 python server.py
 ```
 9. Open your browser to 127.0.0.1:5000
+-----------------------
 
 ### A Simple Website
 When you click the button, 'Hello' will be displayed in a random European language.
