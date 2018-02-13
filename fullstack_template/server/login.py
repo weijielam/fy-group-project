@@ -3,7 +3,7 @@ from flask import Flask, flash, redirect, render_template, request, session, abo
 import os
 from sqlalchemy.orm import sessionmaker
 from tabledef import *
-engine = create_engine('sqlite:///tutorial.db', echo=True)
+engine = create_engine('sqlite:///fygp.db', echo=True)
  
 app = Flask(__name__)
  
