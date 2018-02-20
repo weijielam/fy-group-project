@@ -9,28 +9,13 @@ engine = create_engine('sqlite:///fygp.db', echo=True)
 Session = sessionmaker(bind=engine)
 session = Session()
  
-user = User("admin","password")
+user = User("admin6","password", "suzy", "Y" )
 session.add(user)
  
-user = User("python","python")
-session.add(user)
- 
-user = User("jumpiness","python")
-session.add(user)
-
-user = User("laura","passcode")
-session.add(user)
-
-user = User("wei","lam")
-session.add(user)
- 
-user = User("patrick","berry")
-session.add(user)
-
-user = User("james","leni")
-session.add(user)
 
 # commit the record the database
 session.commit()
  
+session.commit()
+
 session.commit()
