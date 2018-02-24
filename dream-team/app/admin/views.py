@@ -42,7 +42,7 @@ def add_department():
 
     form = DepartmentForm()
     if form.validate_on_submit():
-        department = Department(name=form.name.data,
+        department = Department(name=form.name.data, timeD = form.timeD.data, location = form.location.data,
                                 description=form.description.data)
         try:
             # add department to the database
@@ -75,6 +75,8 @@ def edit_department(id):
     form = DepartmentForm(obj=department)
     if form.validate_on_submit():
         department.name = form.name.data
+        department.timeD = form.timeD.data
+        department.location = form.location.data
         department.description = form.description.data
         db.session.commit()
         flash('You have successfully edited the event.')
@@ -84,6 +86,8 @@ def edit_department(id):
 
     form.description.data = department.description
     form.name.data = department.name
+    form.timeD.data = department.timeD
+    form.location.data = department.location
     return render_template('admin/departments/department.html', action="Edit",
                            add_department=add_department, form=form,
                            department=department, title="Edit Event")

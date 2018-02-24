@@ -19,6 +19,8 @@
               <thead>
                 <tr>
                   <th width="15%"> Name </th>
+                  <th width="15%"> Time </th>
+                  <th width="15%"> Location </th>
                   <th width="40%"> Description </th>
                   <th width="15%"> Employee Count </th>
                   <th width="15%"> Edit </th>
@@ -29,6 +31,8 @@
               {% for department in departments %}
                 <tr>
                   <td> {{ department.name }} </td>
+                  <td> {{ department.timeD }} </td>
+                  <td> {{ department.location }} </td>
                   <td> {{ department.description }} </td>
                   <td>
                     {% if department.employees %}
