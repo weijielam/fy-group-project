@@ -4,9 +4,9 @@ from flask import abort, flash, redirect, render_template, url_for
 from flask_login import current_user, login_required
 
 from . import admin
-from forms import DepartmentForm
+from forms import EventForm
 from .. import db
-from ..models import Department
+from ..models import Event
 
 def check_admin():
     """
@@ -15,97 +15,97 @@ def check_admin():
     if not current_user.is_admin:
         abort(403)
 
-# Department Views
+# Event Views
 
-@admin.route('/departments', methods=['GET', 'POST'])
+@admin.route('/events', methods=['GET', 'POST'])
 @login_required
-def list_departments():
+def list_events():
     """
-    List all departments
+    List all events
     """
     check_admin()
 
-    departments = Department.query.all()
+    events = Event.query.all()
 
-    return render_template('admin/departments/departments.html',
-                           departments=departments, title="Events")
+    return render_template('admin/events/events.html',
+                           events=events, title="Events")
 
-@admin.route('/departments/add', methods=['GET', 'POST'])
+@admin.route('/events/add', methods=['GET', 'POST'])
 @login_required
-def add_department():
+def add_event():
     """
     Add an event to the database
     """
     check_admin()
 
-    add_department = True
+    add_event = True
 
-    form = DepartmentForm()
+    form = EventForm()
     if form.validate_on_submit():
-        department = Department(name=form.name.data, timeD = form.timeD.data, location = form.location.data,
+        event = Event(name=form.name.data, timeD = form.timeD.data, location = form.location.data,
                                 description=form.description.data)
         try:
-            # add department to the database
-            db.session.add(department)
+            # add event to the database
+            db.session.add(event)
             db.session.commit()
             flash('You have successfully added a new event.')
         except:
-            # in case department name already exists
+            # in case event name already exists
             flash('Error: event name already exists.')
 
-        # redirect to departments page
-        return redirect(url_for('admin.list_departments'))
+        # redirect to events page
+        return redirect(url_for('admin.list_events'))
 
-    # load department template
-    return render_template('admin/departments/department.html', action="Add",
-                           add_department=add_department, form=form,
+    # load event template
+    return render_template('admin/events/event.html', action="Add",
+                           add_event=add_event, form=form,
                            title="Add Event")
 
-@admin.route('/departments/edit/<int:id>', methods=['GET', 'POST'])
+@admin.route('/events/edit/<int:id>', methods=['GET', 'POST'])
 @login_required
-def edit_department(id):
+def edit_event(id):
     """
     Edit an event
     """
     check_admin()
 
-    add_department = False
+    add_event = False
 
-    department = Department.query.get_or_404(id)
-    form = DepartmentForm(obj=department)
+    event = Event.query.get_or_404(id)
+    form = EventForm(obj=event)
     if form.validate_on_submit():
-        department.name = form.name.data
-        department.timeD = form.timeD.data
-        department.location = form.location.data
-        department.description = form.description.data
+        event.name = form.name.data
+        event.timeD = form.timeD.data
+        event.location = form.location.data
+        event.description = form.description.data
         db.session.commit()
         flash('You have successfully edited the event.')
 
-        # redirect to the departments page
-        return redirect(url_for('admin.list_departments'))
+        # redirect to the events page
+        return redirect(url_for('admin.list_events'))
 
-    form.description.data = department.description
-    form.name.data = department.name
-    form.timeD.data = department.timeD
-    form.location.data = department.location
-    return render_template('admin/departments/department.html', action="Edit",
-                           add_department=add_department, form=form,
-                           department=department, title="Edit Event")
+    form.description.data = event.description
+    form.name.data = event.name
+    form.timeD.data = event.timeD
+    form.location.data = event.location
+    return render_template('admin/events/event.html', action="Edit",
+                           add_event=add_event, form=form,
+                           event=event, title="Edit Event")
 
-@admin.route('/departments/delete/<int:id>', methods=['GET', 'POST'])
+@admin.route('/events/delete/<int:id>', methods=['GET', 'POST'])
 @login_required
-def delete_department(id):
+def delete_event(id):
     """
     Delete am event from the database
     """
     check_admin()
 
-    department = Department.query.get_or_404(id)
-    db.session.delete(department)
+    event = Event.query.get_or_404(id)
+    db.session.delete(event)
     db.session.commit()
     flash('You have successfully deleted the event.')
 
-    # redirect to the departments page
-    return redirect(url_for('admin.list_departments'))
+    # redirect to the events page
+    return redirect(url_for('admin.list_events'))
 
     return render_template(title="Delete Event")

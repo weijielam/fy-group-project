@@ -4,9 +4,9 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 
-class DepartmentForm(FlaskForm):
+class EventForm(FlaskForm):
     """
-    Form for admin to add or edit a department
+    Form for admin to add or edit a Event
     """
     name = StringField('Name', validators=[DataRequired()])
     timeD = StringField('Time', validators=[DataRequired()])

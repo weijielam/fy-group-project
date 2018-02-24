@@ -27,10 +27,9 @@
     {% if current_user.is_authenticated %}
       {% if current_user.is_admin %}
 
-	<li><a href="{{ url_for('admin.list_departments') }}">Events</a></li>
+	<li><a href="{{ url_for('admin.list_events') }}">Events</a></li>
         <li><a href="{{ url_for('home.admin_dashboard') }}">Dashboard</a></li>
-        <li><a href="#">Roles</a></li>
-        <li><a href="#">Employees</a></li>
+        <li><a href="#">Users</a></li>
       {% else %}
         <li><a href="{{ url_for('home.dashboard') }}">Dashboard</a></li>
       {% endif %}
