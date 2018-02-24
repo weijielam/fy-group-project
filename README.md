@@ -14,65 +14,68 @@ Dependencies
 
 ## Installing and Running from Fresh Install Of Ubuntu 16.04
 1. Install Git and clone the repo
-```git
+```
 sudo apt install git
 git clone https://github.com/weijielam/fygroupproject.git
 ```
-2. Install virtual environment
+
+2. Install aptitude
 ```
-sudo apt install virtualenv
+sudo apt install aptitude
 ```
-3. Install NPM, nodejs and curl
+
+3. Install sql dependencies using aptitude
 ```
-sudo apt-get remove nodejs npm ## remove existing nodejs and npm packages
-sudo apt-get install curl  
-curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-sudo apt-get install -y nodejs  
+sudo aptitude install build-essential python-dev libmysqlclient-dev
 ```
-4. Install and upgrade pip
+
+4. Install and and setup mySQL
+```
+sudo apt-get install mysql-server
+--enter admin password when prompted
+```
+
+5. Set up sql user and database
+```
+mysql -u root -p
+--enter admin password
+CREATE USER 'dt_admin'@'localhost' IDENTIFIED BY 'dt2016'
+CREATE DATABASE dreamteam_db
+GRANT ALL PRIVILEGES ON dreamteam_db . * TO 'dt_admin'@'localhost'
+```
+
+6. Install python-pip
 ```
 sudo apt-get install python-pip
-pip install --upgrade pip
-```
-5. cd to fypgroupproject/fullstack_template/static directory, run npm install, npm run watch
-```
-cd fypgroupproject/fullstack_template/static
-npm install
-npm run watch
-```
-6. Open new terminal, create virtualenv, start virtualenv
-```
-cd
-virtualenv venv
-source venv/bin/activate
-```
-7. Install flask
-```
-cd fygroupproject
-pip install flask
-pip install sqlalchemy
-```
-8. 
-```
-cd fullstack_template/server
-python login.py
 ```
 
---------------------
-IGNORE THIS
-
-8. Start server, cd to server directory "python server.py"
+7. Install pip dependencies
 ```
-cd fullstack_template/server
-python server.py
+cd fygroupproject/
+source Envs/my-venv/bin/activate
+cd dream-team
+pip install -r requirements.txt
 ```
-9. Open your browser to 127.0.0.1:5000
------------------------
 
-### A Simple Website
-When you click the button, 'Hello' will be displayed in a random European language.
+8. Initialise database tables
+```
+flask db upgrade
+```
 
-This is what it should look like:
-![Simple Website](simple_website.png?raw=true "A Simmple Website")
+9. Setup flask environment
+```
+export FLASK_CONFIG=development
+export FLASK_APP=run.py
+```
 
+10. Run server
+```
+flask run
+```
+
+11. Open site
+```
+Open browser
+enter "localhost:5000" into url bar
+```
 
