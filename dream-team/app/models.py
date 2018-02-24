@@ -27,7 +27,7 @@ class Employee(UserMixin, db.Model):
     @property
     def password(self):
         """
-        Prevent pasword from being accessed
+        Prdepartment pasword from being accessed
         """
         raise AttributeError('password is not a readable attribute.')
 
@@ -54,7 +54,7 @@ def load_user(user_id):
 
 class Department(db.Model):
     """
-    Create a Department table
+    Create a department table
     """
 
     __tablename__ = 'departments'
@@ -66,7 +66,7 @@ class Department(db.Model):
                                 lazy='dynamic')
 
     def __repr__(self):
-        return '<Department: {}>'.format(self.name)
+        return '<department: {}>'.format(self.name)
 
 class Role(db.Model):
     """
