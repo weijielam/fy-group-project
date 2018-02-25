@@ -1,12 +1,13 @@
 # app/auth/views.py
 
-from flask import flash, redirect, render_template, url_for
+from flask import flash, redirect, render_template, url_for, request
 from flask_login import login_required, login_user, logout_user
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from . import auth
 from forms import LoginForm, RegistrationForm, ResetPassword, ResetPasswordSubmit
 from .. import db
 from ..models import User
+
 
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
@@ -81,12 +82,10 @@ def forgot_password():
         is_verified_token = True
         form = ResetPasswordSubmit()
         if form.validate_on_submit():
-            print("asdfghj")
-            verified_result.password = generate_password_hash(password_submit_form.password.data)
-            verified_result.is_active = True
-            db.session.add(verified_result)
+            verified_result.password=form.password.data
             db.session.commit()
-            flash("password updated successfully")
+            
+            flash("Password updated successfully")
             return redirect(url_for('auth.login'))                 
     return render_template('auth/reset.html', form=form, title='Reset')
 
