@@ -8,9 +8,17 @@ from flask_mail import Mail, Message
 from . import admin
 from forms import EventForm
 from .. import db
+<<<<<<< HEAD
 from ..models import Event
 from ..models import User
 from app import mail
+=======
+<<<<<<< HEAD
+from ..models import Event, User
+=======
+from ..models import Event, GuestList, User
+>>>>>>> 5396ccf4ba3a83b61d7306b9f3c56b83602ff4d9
+>>>>>>> def3878ebec906fc666c0c8dd1f00b5f59155842
 
 def check_admin():
     """
@@ -96,6 +104,20 @@ def edit_event(id):
                            add_event=add_event, form=form,
                            event=event, title="Edit Event")
 
+@admin.route('/events/invitelist/<int:id>', methods=['GET', 'POST'])
+@login_required
+def invite_event(id):
+    """
+    Edit an event
+    """
+    check_admin()
+
+    users = User.query.all()
+
+    
+    return render_template('admin/events/invitelist.html', action="Invite",                      
+                           users=users, title="Invite List")
+
 @admin.route('/events/delete/<int:id>', methods=['GET', 'POST'])
 @login_required
 def delete_event(id):
@@ -115,6 +137,7 @@ def delete_event(id):
     return render_template(title="Delete Event")
 
 
+<<<<<<< HEAD
 @admin.route('/mailinglist', methods=['GET', 'POST'])
 @login_required
 def mailinglist():
@@ -147,3 +170,22 @@ def send_email():
             conn.send(msg)
 
         return "Sent"
+=======
+
+@admin.route('/events/guestlist/<int:id>', methods=['GET', 'POST'])
+@login_required
+def event_guestlist(id):
+    """
+    View the guest list for an event
+    """
+    check_admin()
+    guests = []
+    add_event = False
+
+    guestList = GuestList.query.filter_by(event_id=id).all()
+    for guest in guestList:
+        guests.append(User.query.get_or_404(guest.guest_id))
+
+    return render_template('admin/events/guestList.html', action="View",
+                           guests=guests, title="Guest List")
+>>>>>>> def3878ebec906fc666c0c8dd1f00b5f59155842

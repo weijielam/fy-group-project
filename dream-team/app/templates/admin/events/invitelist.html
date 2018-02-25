@@ -1,0 +1,42 @@
+<!-- app/templates/admin/events/invitelist.html -->
+
+{% import "bootstrap/utils.html" as utils %}
+{% extends "base.html" %}
+{% block title %}InviteList{% endblock %}
+{% block body %}
+<div class="content-section">
+  <div class="outer">
+    <div class="middle">
+      <div class="inner">
+        <br/>
+        {{ utils.flashed_messages() }}
+        <br/>
+        <h1 style="text-align:center;">Invite List</h1>
+        {% if users %}
+          <hr class="intro-divider">
+          <div class="center">
+            <table class="table table-striped table-bordered">
+              
+              <tbody>
+              {% for user in users %}
+                <p> {{ user.username + " " + user.email}} </p>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div style="text-align: center">
+        {% else %}
+          <div style="text-align: center">
+            <h3> No guests registered. </h3>
+            <hr class="intro-divider">
+        {% endif %}
+          <a href="{{ url_for('admin.list_events') }}" class="btn btn-default btn-lg">
+            <i class="fa fa-mail-reply"></i>
+            Return
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
