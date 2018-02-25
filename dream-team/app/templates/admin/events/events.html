@@ -22,9 +22,10 @@
                   <th width="15%"> Time </th>
                   <th width="15%"> Location </th>
                   <th width="40%"> Description </th>
-                  <th width="15%"> Employee Count </th>
                   <th width="15%"> Edit </th>
-                  <th width="15%"> Delete </th>
+                  <th width="20%"> Delete </th>
+                  <th width="15%"> Guests List</th>
+                  <th width ="20%"> Invite List </th>
                 </tr>
               </thead>
               <tbody>
@@ -34,13 +35,7 @@
                   <td> {{ event.timeD }} </td>
                   <td> {{ event.location }} </td>
                   <td> {{ event.description }} </td>
-                  <td>
-                    {% if event.employees %}
-                      {{ event.employees.count() }}
-                    {% else %}
-                      0
-                    {% endif %}
-                  </td>
+                  
                   <td>
                     <a href="{{ url_for('admin.edit_event', id=event.id) }}">
                       <i class="fa fa-pencil"></i> Edit 
@@ -49,6 +44,16 @@
                   <td>
                     <a href="{{ url_for('admin.delete_event', id=event.id) }}">
                       <i class="fa fa-trash"></i> Delete 
+                    </a>
+                  </td>
+                  <td>
+                    <a href="{{ url_for('admin.delete_event', id=event.id) }}">
+                      <i class="fa fa-trash"></i> View  
+                    </a>
+                  </td>
+                  <td>
+                    <a href="{{ url_for('admin.delete_event', id=event.id) }}">
+                      <i class="fa fa-trash"></i> Invite 
                     </a>
                   </td>
                 </tr>
