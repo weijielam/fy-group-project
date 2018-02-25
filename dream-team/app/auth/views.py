@@ -81,7 +81,7 @@ def forgot_password():
 ######email stufff###########
     msg = Message('Hello', sender = MAIL_USERNAME, recipients = [verified_result.email])
     url = 'localhost:5000/reset?token='+token
-    msg.body = "Hello I see you want to change your password for your charity partner event. Please click the link below to be taken to the reset page." + "\n" +
+    msg.body = "Hello I see you want to change your password for your charity partner event. Please click the link below to be taken to the reset page." + "\n" + url
     mail.send(msg)
 
 

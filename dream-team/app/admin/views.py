@@ -8,14 +8,10 @@ from flask_mail import Mail, Message
 from . import admin
 from forms import EventForm
 from .. import db
-<<<<<<< HEAD
 
-from ..models import Event, GuestList, User
-
-=======
 from app import mail
 from ..models import Event, GuestList, User
->>>>>>> 0a92978c9deb1fe11c17a8b348e9cde5fc625b9b
+
 
 def check_admin():
     """
