@@ -2,11 +2,15 @@
 
 from flask import abort, flash, redirect, render_template, url_for
 from flask_login import current_user, login_required
+from flask_mail import Mail, Message
+
 
 from . import admin
 from forms import EventForm
 from .. import db
 from ..models import Event
+from ..models import User
+from app import mail
 
 def check_admin():
     """
@@ -96,7 +100,7 @@ def edit_event(id):
 @login_required
 def delete_event(id):
     """
-    Delete am event from the database
+    Delete am event from the databasew
     """
     check_admin()
 
@@ -109,3 +113,37 @@ def delete_event(id):
     return redirect(url_for('admin.list_events'))
 
     return render_template(title="Delete Event")
+
+
+@admin.route('/mailinglist', methods=['GET', 'POST'])
+@login_required
+def mailinglist():
+    """
+    List all events
+    """
+    check_admin()
+
+    events = Event.query.all()
+    users = User.query.all()
+
+    return render_template('admin/mailinglist/mailinglist.html',
+                           users=users, title="mailinglist")
+
+
+
+@admin.route('/mailinglist/send', methods=['GET', 'POST'])
+@login_required
+def send_email():
+    users = User.query.all()
+    with mail.connect() as conn:
+        for user in users:
+            message = '...'
+            subject = "hello, %s" % user.username
+            msg = Message(recipients=[user.email],
+                            sender="weijielam@gmail.com",
+                          body=message,
+                          subject=subject)
+
+            conn.send(msg)
+
+        return "Sent"
