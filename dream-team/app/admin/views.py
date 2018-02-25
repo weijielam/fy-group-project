@@ -6,7 +6,11 @@ from flask_login import current_user, login_required
 from . import admin
 from forms import EventForm
 from .. import db
+<<<<<<< HEAD
 from ..models import Event, User
+=======
+from ..models import Event, GuestList, User
+>>>>>>> 5396ccf4ba3a83b61d7306b9f3c56b83602ff4d9
 
 def check_admin():
     """
@@ -123,3 +127,22 @@ def delete_event(id):
     return redirect(url_for('admin.list_events'))
 
     return render_template(title="Delete Event")
+
+
+
+@admin.route('/events/guestlist/<int:id>', methods=['GET', 'POST'])
+@login_required
+def event_guestlist(id):
+    """
+    View the guest list for an event
+    """
+    check_admin()
+    guests = []
+    add_event = False
+
+    guestList = GuestList.query.filter_by(event_id=id).all()
+    for guest in guestList:
+        guests.append(User.query.get_or_404(guest.guest_id))
+
+    return render_template('admin/events/guestList.html', action="View",
+                           guests=guests, title="Guest List")

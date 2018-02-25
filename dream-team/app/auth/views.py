@@ -1,12 +1,13 @@
 # app/auth/views.py
 
-from flask import flash, redirect, render_template, url_for
+from flask import flash, redirect, render_template, url_for, request
 from flask_login import login_required, login_user, logout_user
-
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from . import auth
-from forms import LoginForm, RegistrationForm
+from forms import LoginForm, RegistrationForm, ResetPassword, ResetPasswordSubmit
 from .. import db
 from ..models import User
+
 
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
@@ -62,6 +63,48 @@ def login():
 
     # load login template
     return render_template('auth/login.html', form=form, title='Login')
+
+####### RESET PASSWORD CODE ########
+@auth.route('/reset', methods=['GET', 'POST',])
+def forgot_password():
+    token = request.args.get('token')
+    form = ResetPassword()
+    if form.validate_on_submit():
+        email = form.email.data
+        user = User.query.filter_by(email=email).first()
+        if user:
+            token = user.get_token()
+            print ("HERE'S THE OUL TOKEN LOVE",token)   
+    verified_result = User.verify_token(token)
+    print ("HERE'S WHAT YOUR COMPUTER THINKS THE TOKEN IS", verified_result)
+    if token and verified_result:
+        print("reached here")
+        is_verified_token = True
+        form = ResetPasswordSubmit()
+        if form.validate_on_submit():
+            verified_result.password=form.password.data
+            db.session.commit()
+            
+            flash("Password updated successfully")
+            return redirect(url_for('auth.login'))                 
+    return render_template('auth/reset.html', form=form, title='Reset')
+
+def get_token(self, expiration=100):
+        s = Serializer(['SECRET_KEY'])
+        return s.dumps({'user': self.id}).decode('utf-8')
+
+def verify_token(token):
+    s = Serializer(['SECRET_KEY'])
+    try:
+        data = s.loads(token)
+    except:
+        return None
+    id = data.get('user')
+    if id:
+        return User.query.get(id)
+    return None   
+
+######### END RESET PASSWORD CODE ########    
 
 @auth.route('/logout')
 @login_required
