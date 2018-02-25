@@ -1,0 +1,10 @@
+Create an admin
+
+1. Open terminal
+type:
+$ flask shell
+>>> from app.models import Employee
+>>> from app import db
+>>> admin = Employee(email="admin@admin.com",username="admin",password="admin2018",is_admin=True)
+>>> db.session.add(admin)
+>>> db.session.commit()
