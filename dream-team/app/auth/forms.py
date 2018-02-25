@@ -21,6 +21,8 @@ class RegistrationForm(FlaskForm):
     confirm_password = PasswordField('Confirm Password')
     submit = SubmitField('Register')
 
+
+
     def validate_email(self, field):
         if User.query.filter_by(email=field.data).first():
             raise ValidationError('Email is already in use.')
@@ -36,3 +38,24 @@ class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Login')
+
+
+class ExistingUser(object):
+    def validate_email(self, field):
+        if not User.query.filter_by(email=field.data).first():
+            raise ValidationError('Email does not exist! ')
+
+    def __call__(self, form, field):
+        if not User.query.filter_by(email=field.data).first():
+            raise ValidationError(self.message)
+
+
+class ResetPassword(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    submit = SubmitField('Send Email')
+
+
+class ResetPasswordSubmit(FlaskForm):
+    password = PasswordField('Password', validators=[DataRequired(), EqualTo('confirm')] )
+    confirm = PasswordField('Confirm Password')
+    submit = SubmitField('Change Password')
