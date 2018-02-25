@@ -6,11 +6,9 @@ from flask_login import current_user, login_required
 from . import admin
 from forms import EventForm
 from .. import db
-<<<<<<< HEAD
-from ..models import Event, User
-=======
+
 from ..models import Event, GuestList, User
->>>>>>> 5396ccf4ba3a83b61d7306b9f3c56b83602ff4d9
+
 
 def check_admin():
     """
