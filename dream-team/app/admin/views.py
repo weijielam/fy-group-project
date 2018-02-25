@@ -8,17 +8,8 @@ from flask_mail import Mail, Message
 from . import admin
 from forms import EventForm
 from .. import db
-<<<<<<< HEAD
-from ..models import Event
-from ..models import User
 from app import mail
-=======
-<<<<<<< HEAD
-from ..models import Event, User
-=======
 from ..models import Event, GuestList, User
->>>>>>> 5396ccf4ba3a83b61d7306b9f3c56b83602ff4d9
->>>>>>> def3878ebec906fc666c0c8dd1f00b5f59155842
 
 def check_admin():
     """
@@ -137,7 +128,6 @@ def delete_event(id):
     return render_template(title="Delete Event")
 
 
-<<<<<<< HEAD
 @admin.route('/mailinglist', methods=['GET', 'POST'])
 @login_required
 def mailinglist():
@@ -170,7 +160,6 @@ def send_email():
             conn.send(msg)
 
         return "Sent"
-=======
 
 @admin.route('/events/guestlist/<int:id>', methods=['GET', 'POST'])
 @login_required
@@ -188,4 +177,4 @@ def event_guestlist(id):
 
     return render_template('admin/events/guestList.html', action="View",
                            guests=guests, title="Guest List")
->>>>>>> def3878ebec906fc666c0c8dd1f00b5f59155842
+
