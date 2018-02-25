@@ -7,7 +7,8 @@ from . import auth
 from forms import LoginForm, RegistrationForm, ResetPassword, ResetPasswordSubmit
 from .. import db
 from ..models import User
-
+from flask_mail import Mail, Message 
+from app import mail
 
 
 @auth.route('/register', methods=['GET', 'POST'])
@@ -76,16 +77,17 @@ def forgot_password():
         if user:
             token = user.get_token()
             print ("HERE'S THE OUL TOKEN LOVE",token)
+        with mail.connect() as conn:
+            message = 'Hello I see you would like to change your password! Please click this link. localhost:5000/reset?token='+token
+            subject = "Password Reset"
+            msg = Message(recipients=[user.email],
+                            sender="fygptest@gmail.com",
+                          body=message,
+                          subject=subject)
 
-    verified_result = User.verify_token(token)        
-######email stufff###########
-    msg = Message('Hello', sender = MAIL_USERNAME, recipients = [verified_result.email])
-    url = 'localhost:5000/reset?token='+token
-    msg.body = "Hello I see you want to change your password for your charity partner event. Please click the link below to be taken to the reset page." + "\n" +
-    mail.send(msg)
+            conn.send(msg)
 
-
-
+    verified_result = User.verify_token(token)
     if token and verified_result:
         is_verified_token = True
         form = ResetPasswordSubmit()
