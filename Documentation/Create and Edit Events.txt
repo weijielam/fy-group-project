@@ -1,0 +1,15 @@
+To create an event:
+**Must have created an admin first following the create admin.txt instructions. **
+
+1. Login in as admin user: admin@admin.com
+		     pass: admin2018
+2. Click on the event tab located at the top of the dashboard
+3. Click 'add event' button, and enter the details of the event.
+4. Click submit.
+
+To Edit an event:
+1. Login in as admin user: admin@admin.com
+		     pass: admin2018
+2. Click on the event tab located at the top of the dashboard
+3. Select 'edit' on whichever event you want to edit
+4. edit event and click submit.
