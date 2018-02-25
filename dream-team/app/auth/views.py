@@ -76,9 +76,7 @@ def forgot_password():
             token = user.get_token()
             print ("HERE'S THE OUL TOKEN LOVE",token)   
     verified_result = User.verify_token(token)
-    print ("HERE'S WHAT YOUR COMPUTER THINKS THE TOKEN IS", verified_result)
     if token and verified_result:
-        print("reached here")
         is_verified_token = True
         form = ResetPasswordSubmit()
         if form.validate_on_submit():
