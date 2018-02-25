@@ -4,7 +4,10 @@ class Config(object):
     """
     Common configurations
     """
+<<<<<<< HEAD
 
+=======
+>>>>>>> 33deedb61cda40663a655947d1511f4b3f97f0bc
     MAIL_SERVER = 'smtp.gmail.com'
     MAIL_PORT = 465
     MAIL_USERNAME = 'fygptest@gmail.com'

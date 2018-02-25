@@ -1,0 +1,20 @@
+Add guests to an event
+
+**Need to have users registered and events created already; follow 'Create and Edit Events.txt' to create events; follow 'Register Account.txt' to register a user**
+
+1. open terminal
+2. type 'mysql -u root -p' and enter root user password 
+	**you will have set this druing first time setup in 'README.md'**
+
+3. ether the following into the terminal:
+>>> use dreamteam_db
+>>> insert into guestLists (guest_id, event_id, is_attending) data ('guest id data', 'event id data', 'boolean value of attending or not') 
+	**where guest id data etc. are replaced with actual values**
+	**event ids and user ids can be viewed in the sql interface by typing 'select * from users' or 'selest * from events'**
+	**boolean value can be '1' or '0'**
+>>>\q
+	**exits from mysql interface**
+
+**user must be admin in order to view events. Follow 'Create Admin.txt' to create an admin account.**
+
+**To view guests click on events at the top of the page in your web browser while the website is running (instructions to run the website are in the readme.md). Then click on the guest list tab under an existing event.**
