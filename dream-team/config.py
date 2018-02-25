@@ -4,16 +4,13 @@ class Config(object):
     """
     Common configurations
     """
-<<<<<<< HEAD
 
-=======
     MAIL_SERVER = 'smtp.gmail.com'
     MAIL_PORT = 465
     MAIL_USERNAME = 'fygptest@gmail.com'
     MAIL_PASSWORD = 'admin2018'
     MAIL_USE_TLS = False
     MAIL_USE_SSL = True
->>>>>>> 88c175e8e70070b56132f6f996315537d8019bac
     # Put any configurations here that are common across all environments
 
 class DevelopmentConfig(Config):
