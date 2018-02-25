@@ -2,15 +2,14 @@
 
 from flask import abort, flash, redirect, render_template, url_for
 from flask_login import current_user, login_required
+from flask_mail import Mail, Message
+
 
 from . import admin
 from forms import EventForm
 from .. import db
-<<<<<<< HEAD
-from ..models import Event, User
-=======
+from app import mail
 from ..models import Event, GuestList, User
->>>>>>> 5396ccf4ba3a83b61d7306b9f3c56b83602ff4d9
 
 def check_admin():
     """
@@ -114,7 +113,7 @@ def invite_event(id):
 @login_required
 def delete_event(id):
     """
-    Delete am event from the database
+    Delete am event from the databasew
     """
     check_admin()
 
@@ -129,6 +128,38 @@ def delete_event(id):
     return render_template(title="Delete Event")
 
 
+@admin.route('/mailinglist', methods=['GET', 'POST'])
+@login_required
+def mailinglist():
+    """
+    List all events
+    """
+    check_admin()
+
+    events = Event.query.all()
+    users = User.query.all()
+
+    return render_template('admin/mailinglist/mailinglist.html',
+                           users=users, title="mailinglist")
+
+
+
+@admin.route('/mailinglist/send', methods=['GET', 'POST'])
+@login_required
+def send_email():
+    users = User.query.all()
+    with mail.connect() as conn:
+        for user in users:
+            message = '...'
+            subject = "hello, %s" % user.username
+            msg = Message(recipients=[user.email],
+                            sender="weijielam@gmail.com",
+                          body=message,
+                          subject=subject)
+
+            conn.send(msg)
+
+        return "Sent"
 
 @admin.route('/events/guestlist/<int:id>', methods=['GET', 'POST'])
 @login_required
@@ -146,3 +177,4 @@ def event_guestlist(id):
 
     return render_template('admin/events/guestList.html', action="View",
                            guests=guests, title="Guest List")
+
