@@ -6,7 +6,7 @@ from flask_login import current_user, login_required
 from . import admin
 from forms import EventForm
 from .. import db
-from ..models import Event
+from ..models import Event, User
 
 def check_admin():
     """
@@ -91,6 +91,20 @@ def edit_event(id):
     return render_template('admin/events/event.html', action="Edit",
                            add_event=add_event, form=form,
                            event=event, title="Edit Event")
+
+@admin.route('/events/invitelist/<int:id>', methods=['GET', 'POST'])
+@login_required
+def invite_event(id):
+    """
+    Edit an event
+    """
+    check_admin()
+
+    users = User.query.all()
+
+    
+    return render_template('admin/events/invitelist.html', action="Invite",                      
+                           users=users, title="Invite List")
 
 @admin.route('/events/delete/<int:id>', methods=['GET', 'POST'])
 @login_required
