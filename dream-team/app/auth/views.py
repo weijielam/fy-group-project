@@ -9,6 +9,7 @@ from .. import db
 from ..models import User
 
 
+
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
     """
@@ -74,11 +75,18 @@ def forgot_password():
         user = User.query.filter_by(email=email).first()
         if user:
             token = user.get_token()
-            print ("HERE'S THE OUL TOKEN LOVE",token)   
-    verified_result = User.verify_token(token)
-    print ("HERE'S WHAT YOUR COMPUTER THINKS THE TOKEN IS", verified_result)
+            print ("HERE'S THE OUL TOKEN LOVE",token)
+
+    verified_result = User.verify_token(token)        
+######email stufff###########
+    msg = Message('Hello', sender = MAIL_USERNAME, recipients = [verified_result.email])
+    url = 'localhost:5000/reset?token='+token
+    msg.body = "Hello I see you want to change your password for your charity partner event. Please click the link below to be taken to the reset page." + "\n" +
+    mail.send(msg)
+
+
+
     if token and verified_result:
-        print("reached here")
         is_verified_token = True
         form = ResetPasswordSubmit()
         if form.validate_on_submit():
