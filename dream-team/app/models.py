@@ -2,7 +2,7 @@
 
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
-
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from app import db, login_manager
 
 class User(UserMixin, db.Model):
@@ -41,6 +41,26 @@ class User(UserMixin, db.Model):
         Check if hashed password matches actual password
         """
         return check_password_hash(self.password_hash, password)
+
+
+     #### PASSWORD RESET CODE ######
+    def get_token(self, expiration=1800):
+        s = Serializer('SECRET_KEY', expiration)
+        return s.dumps({'user': self.id}).decode('utf-8')
+
+    @staticmethod
+    def verify_token(token):
+        s = Serializer('SECRET_KEY') #####YOU CHANGED THIS IT MAY BE BROKE
+        try:
+            data = s.loads(token)
+        except:
+            return None
+        id = data.get('user')
+        if id:
+            return User.query.get(id)
+        return None
+
+    #### END PASSWORD RESET CODE #####   
 
     def __repr__(self):
         return '<User: {}>'.format(self.username)
