@@ -22,7 +22,7 @@
                   <th width="20%"> First Name </th>
                   <th width="20%"> Last Name </th>
                   <th width="30%"> E-mail </th>
-                  
+                  <th width="20%"> Invite </th>
                 </tr>
               </thead>
               <tbody>
@@ -32,6 +32,7 @@
                   <td> {{ user.first_name }} </td>
                   <td> {{ user.last_name }} </td>
                   <td> {{ user.email }} </td>
+                  <td class="center"><a href=" {{ url_for('admin.add_guest', eid=eid, gid=user.id) }} "><button type="button" class="btn btn-primary btn-xs completed_box">+</button></a></td>
                 </tr>
               {% endfor %}
               </tbody>
@@ -40,7 +41,7 @@
           <div style="text-align: center">
         {% else %}
           <div style="text-align: center">
-            <h3> No guests registered. </h3>
+            <h3> No guests to invite. </h3>
             <hr class="intro-divider">
         {% endif %}
           <a href="{{ url_for('admin.list_events') }}" class="btn btn-default btn-lg">
