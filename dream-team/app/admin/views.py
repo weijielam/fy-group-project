@@ -4,7 +4,7 @@ from flask import abort, flash, redirect, render_template, url_for,request
 from flask_login import current_user, login_required
 from flask_mail import Mail, Message
 from . import admin
-from forms import EventForm
+from forms import EventForm, GuestListForm
 from email import EmailForm
 from forms import EventForm, AdminAccessForm
 
@@ -123,6 +123,32 @@ def invite_event(id):
     return render_template('admin/events/invitelist.html', action="Invite",                      
                            users=not_invited, eid=id, title="Invite List")
 
+@admin.route('/events/needs/<int:eid>/<int:uid>', methods=['GET', 'POST'])
+@login_required
+def needs_event(eid, uid):
+    """
+    Needs for a user
+    """
+    check_admin()
+    add_event = False
+
+    
+    form = GuestListForm()
+    user = User.query.get_or_404(uid)
+    form = GuestListForm(obj=user)
+    if form.validate_on_submit():
+       
+        user.needs = form.needs.data
+        db.session.commit()
+        flash('You have successfully edited a users needs.')
+
+        # redirect to the events page
+        return redirect(url_for('admin.event_guestlist', id=eid))
+
+    user.needs = form.needs.data 
+    return render_template('admin/events/userneeds.html', action="Needs",                      
+                           id =eid, user=user, form=form, title="needs")
+
 @admin.route('/events/delete/<int:id>', methods=['GET', 'POST'])
 @login_required
 def delete_event(id):
@@ -211,13 +237,17 @@ def event_guestlist(id):
     check_admin()
     guests = []
     add_event = False
+    event = Event.query.get_or_404(id)
+
 
     guestList = GuestList.query.filter_by(event_id=id).all()
     for guest in guestList:
         guests.append(User.query.get_or_404(guest.guest_id))
+   
+
 
     return render_template('admin/events/guestList.html', action="View",
-                           guests=guests, id=id, title="Guest List")
+                           guests=guests, event=event, id=id, title="Guest List")
 
 
 
