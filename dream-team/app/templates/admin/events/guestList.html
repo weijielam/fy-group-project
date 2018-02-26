@@ -20,6 +20,7 @@
                   <th width="20%"> First Name </th>
                   <th width="20%"> Last Name </th>
                   <th width="30%"> E-mail </th>
+                  <th width="20%"> Remove </th>
                 </tr>
               </thead>
               <tbody>
@@ -29,6 +30,7 @@
                   <td> {{ guest.first_name }} </td>
                   <td> {{ guest.last_name }} </td>
                   <td> {{ guest.email }} </td>
+                  <td class="center"><a href=" {{ url_for('admin.remove_guest', gid=guest.id, eid=id) }} "><button type="button" class="btn btn-primary btn-xs completed_box">X</button></a></td>
                 </tr>
               {% endfor %}
               </tbody>
