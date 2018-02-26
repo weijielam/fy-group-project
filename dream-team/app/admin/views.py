@@ -224,15 +224,15 @@ def event_guestlist_mailinglist(id):
         try:
             flash('Email sent to guestlist mailing list')
             send_email_to_users(guests, subject, body)
-            return redirect(url_for('events.mailinglist'))
+            return redirect(url_for('admin.list_events'))
             
         except:
-            # in case email fails
+            #in case email fails
             flash('ERROR')
 
      
     return render_template('admin/events/mailinglist.html',
-                           form = form, users=users, title="mailinglist")
+                           form = form, users=guests, title="mailinglist")
 
 
 @admin.route('/events/guestlist/<int:id>', methods=['GET', 'POST'])
