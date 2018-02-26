@@ -19,6 +19,6 @@ class AdminAccessForm(FlaskForm):
     """
     Form to grant admin access
     """
-    email = StringField('Email', validators=[DataRequired()])
+    email = StringField('Would you like to grant admin access to someone? Enter their email below!', validators=[DataRequired()])
     submit = SubmitField('Grant Access')
     

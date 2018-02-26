@@ -1,0 +1,6 @@
+How to grant admin access to other users:
+*REQUIRES ADMIN ACCESS*
+1. Login into your admin account
+2. Navigate to the users tab
+3. Enter the email of the user you wish to grant admin access to and then click grant access. 
+4. The Is Admin? section beside the user should change from true to false. 
