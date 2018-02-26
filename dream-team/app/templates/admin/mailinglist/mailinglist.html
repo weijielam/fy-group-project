@@ -19,18 +19,18 @@
               <thead>
                 <tr>
                   <th width="15%"> Username </th>
-                  <th width="15%"> Email </th>
                   <th width="15%"> First Name </th>
-                  <th width="40%"> Last Name </th>
+                  <th width="30%"> Last Name </th>
+                  <th width="40%"> Email </th>
                 </tr>
               </thead>
               <tbody>
               {% for user in users %}
                 <tr>
                   <td> {{ user.username }} </td>
-                  <td> {{ user.email }} </td>
                   <td> {{ user.first_name }} </td>
                   <td> {{ user.last_name }} </td>
+                  <td> {{ user.email }} </td>
                 </tr>
               {% endfor %}
               </tbody>
@@ -44,8 +44,8 @@
             <hr class="intro-divider">
         {% endif %}
           <a href="{{ url_for('admin.send_email') }}" class="btn btn-default btn-lg">
-            <i class="fa fa-plus"></i>
-            Add Event
+            <i class="fa fa-paper-plane"></i>
+            Send Email
           </a>
         </div>
       </div>

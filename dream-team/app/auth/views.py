@@ -85,7 +85,18 @@ def forgot_password():
                           body=message,
                           subject=subject)
 
+<<<<<<< HEAD
             conn.send(msg)
+=======
+    verified_result = User.verify_token(token)        
+######email stufff###########
+    msg = Message('Hello', sender = MAIL_USERNAME, recipients = [verified_result.email])
+    url = 'localhost:5000/reset?token='+token
+    msg.body = "Hello I see you want to change your password for your charity partner event. Please click the link below to be taken to the reset page." + "\n" + url
+    mail.send(msg)
+
+
+>>>>>>> dd1e907276152a7dcc68bf18daab83d733870240
 
     verified_result = User.verify_token(token)
     if token and verified_result:
