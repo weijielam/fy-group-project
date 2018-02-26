@@ -1,8 +1,9 @@
 <!-- app/templates/admin/departments/departments.html -->
 
+{% import "bootstrap/wtf.html" as wtf %}
 {% import "bootstrap/utils.html" as utils %}
 {% extends "base.html" %}
-{% block title %}Cardi B{% endblock %}
+{% block title %}Mailing List{% endblock %}
 {% block body %}
 <div class="content-section">
   <div class="outer">
@@ -11,42 +12,14 @@
         <br/>
         {{ utils.flashed_messages() }}
         <br/>
-        <h1 style="text-align:center;">Mailing List</h1>
-        {% if users %}
-          <hr class="intro-divider">
-          <div class="center">
-            <table class="table table-striped table-bordered">
-              <thead>
-                <tr>
-                  <th width="15%"> Username </th>
-                  <th width="15%"> Email </th>
-                  <th width="15%"> First Name </th>
-                  <th width="40%"> Last Name </th>
-                </tr>
-              </thead>
-              <tbody>
-              {% for user in users %}
-                <tr>
-                  <td> {{ user.username }} </td>
-                  <td> {{ user.email }} </td>
-                  <td> {{ user.first_name }} </td>
-                  <td> {{ user.last_name }} </td>
-                </tr>
-              {% endfor %}
-              </tbody>
-
-            </table>
-          </div>
-          <div style="text-align: center">
-        {% else %}
-          <div style="text-align: center">
-            <h3> No users </h3>
-            <hr class="intro-divider">
-        {% endif %}
-          <a href="{{ url_for('admin.send_email') }}" class="btn btn-default btn-lg">
-            <i class="fa fa-plus"></i>
-            Add Event
-          </a>
+        <h1 style="text-align:center;">Mailing List - Send Email To All Users</h1>
+        <div class="center">
+            {{ wtf.quick_form(form) }}
+        </div>
+          <!-- <a href="{{ url_for('admin.mailinglist_email') }}" class="btn btn-default btn-lg">
+            <i class="fa fa-paper-plane"></i>
+            Send Email
+          </a> -->
         </div>
       </div>
     </div>

@@ -1,14 +1,14 @@
 # app/admin/views.py
 
-from flask import abort, flash, redirect, render_template, url_for
+from flask import abort, flash, redirect, render_template, url_for,request
 from flask_login import current_user, login_required
 from flask_mail import Mail, Message
-
-
 from . import admin
 from forms import EventForm
-from .. import db
+from email import EmailForm
+from forms import EventForm, AdminAccessForm
 
+from .. import db
 from app import mail
 from ..models import Event, GuestList, User
 
@@ -148,39 +148,59 @@ def delete_event(id):
 
     return render_template(title="Delete Event")
 
-
+# Mailing List
+# Display Mailing List Page
 @admin.route('/mailinglist', methods=['GET', 'POST'])
 @login_required
 def mailinglist():
-    """
-    List all events
-    """
-    check_admin()
 
-    events = Event.query.all()
+    check_admin()
     users = User.query.all()
 
+    form = EmailForm()
+    if form.validate_on_submit():
+        subject = form.subject.data 
+        body    = form.body.data
+        try:
+            flash('Email sent to mailing list')
+            # send email
+            mailinglist_email(subject, body)
+            
+            return redirect(url_for('admin.mailinglist'))
+        except:
+            # in case email fails
+            flash('ERROR')
+
+        # redirect to events page
     return render_template('admin/mailinglist/mailinglist.html',
-                           users=users, title="mailinglist")
+                           form = form, users=users, title="mailinglist")
 
-
-
+# send email to all users in mailing list
 @admin.route('/mailinglist/send', methods=['GET', 'POST'])
 @login_required
-def send_email():
+def mailinglist_email(subject, body):
     users = User.query.all()
     with mail.connect() as conn:
         for user in users:
-            message = '...'
-            subject = "hello, %s" % user.username
-            msg = Message(recipients=[user.email],
-                            sender="weijielam@gmail.com",
-                          body=message,
-                          subject=subject)
-
+            msg = Message(recipients=[user.email], sender="fygptest@gmail.com",
+                          body=body, subject=subject)
+            
             conn.send(msg)
 
         return "Sent"
+
+# Send mass email to users with message
+@login_required
+def send_email_to_users(users, message, subject):
+    with mail.connect() as conn:
+        for user in users:
+            message = message
+            subject = subject
+            msg = Message(recipients=[user.email], sender="fygptest@gmail.com",
+                            body = message, subject = subject)
+            conn.send(msg)
+        return "Sent"
+
 
 @admin.route('/events/guestlist/<int:id>', methods=['GET', 'POST'])
 @login_required
@@ -242,5 +262,31 @@ def add_guest(eid, gid):
 
     # redirect to the events page
     return redirect(url_for('admin.invite_event', id=eid))
-
     return render_template(title="Added Guest")
+
+
+@admin.route('/userlist', methods=['GET', 'POST'])
+@login_required
+def userlist():
+    """
+    List all events
+    """
+    
+    check_admin()
+
+    form = AdminAccessForm()
+    if form.validate_on_submit():
+        email_of_user= form.email.data
+        print("The email you entered", email_of_user)
+        user = User.query.filter_by(email=email_of_user).all()
+        user[0].is_admin=1
+        db.session.commit()
+
+    events = Event.query.all()
+    users = User.query.all()
+
+    
+
+
+    return render_template('admin/userlist/userlist.html',
+                           users=users, title="User List", form=form)    
