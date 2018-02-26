@@ -12,6 +12,7 @@ class EventForm(FlaskForm):
     timeD = StringField('Time', validators=[DataRequired()])
     location = StringField('Location', validators=[DataRequired()])
     description = StringField('Description', validators=[DataRequired()])
+    menu = StringField('Menu name eg Menu1.png')
     submit = SubmitField('Submit')
 
 

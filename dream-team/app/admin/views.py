@@ -11,7 +11,9 @@ from forms import EventForm, AdminAccessForm
 from .. import db
 from app import mail
 from ..models import Event, GuestList, User
-
+from PIL import Image 
+import webbrowser
+import pathlib
 
 def check_admin():
     """
@@ -48,7 +50,7 @@ def add_event():
     form = EventForm()
     if form.validate_on_submit():
         event = Event(name=form.name.data, timeD = form.timeD.data, location = form.location.data,
-                                description=form.description.data)
+                                description=form.description.data, menus = 'menus/'+form.menu.data)
         try:
             # add event to the database
             db.session.add(event)
@@ -83,6 +85,7 @@ def edit_event(id):
         event.timeD = form.timeD.data
         event.location = form.location.data
         event.description = form.description.data
+        event.menus = 'menus/'+form.menu.data
         db.session.commit()
         flash('You have successfully edited the event.')
 
@@ -174,6 +177,26 @@ def delete_event(id):
     return redirect(url_for('admin.list_events'))
 
     return render_template(title="Delete Event")
+
+######MENUS CODE########
+
+@admin.route('/events/menus/<int:id>', methods=['GET', 'POST'])
+@login_required
+def event_menus(id):
+    """
+    View the menus for an event
+    """
+
+    check_admin()
+    event_id = Event.query.filter_by(id=id).all()
+    menu_path = event_id[0].menus
+    im = Image.open((menu_path))
+    im.show()
+
+    return render_template('admin/events/menus.html', action="View",
+                            title="Menu")
+
+#########END MENUS CODE###############
 
 # Mailing List
 # Display Mailing List Page

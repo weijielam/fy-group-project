@@ -1,0 +1,35 @@
+{% import "bootstrap/utils.html" as utils %}
+{% extends "base.html" %}
+{% block title %}Menus{% endblock %}
+{% block body %}
+<div class="content-section">
+  <div class="outer">
+    <div class="middle">
+      <div class="inner">
+        <br/>
+        {{ utils.flashed_messages() }}
+        <br/>
+        <h1 style="text-align:center;">Menus</h1>
+        {% if menus %}
+          <hr class="intro-divider">
+          <div class="center">
+            
+
+
+          </div>
+          <div style="text-align: center">
+        {% else %}
+          <div style="text-align: center">
+            <h3> If a menu has been added it will open in an external window. </h3>
+            <hr class="intro-divider">
+        {% endif %}
+          <a href="{{ url_for('admin.list_events') }}" class="btn btn-default btn-lg">
+            <i class="fa fa-mail-reply"></i>
+            Return
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
