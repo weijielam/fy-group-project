@@ -177,3 +177,17 @@ def event_guestlist(id):
     return render_template('admin/events/guestList.html', action="View",
                            guests=guests, title="Guest List")
 
+@admin.route('/userlist', methods=['GET', 'POST'])
+@login_required
+def userlist():
+    """
+    List all events
+    """
+    check_admin()
+
+    events = Event.query.all()
+    users = User.query.all()
+
+    return render_template('admin/userlist/userlist.html',
+                           users=users, title="User List")    
+
