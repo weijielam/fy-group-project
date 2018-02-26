@@ -1,0 +1,11 @@
+# I want to sent invitations to a mailing list, so that people know to come and that they are invited
+**Presuming this means send invitations to a mailing list for an event**
+**Must have created an admin first following the create admin.txt instructions. **
+**Must have created an event(s)**
+1. Login in as admin user: admin@admin.com pass: admin2018
+2. Click on the event tab located at the top of the dashboard
+3. Select event and add guests to the event (see Add guests to an event.txt) 
+4. Click "Send Email" for the event
+5. Enter in Subject field "You are invited to this event"
+6. Enter in Message field "You should come to the event"
+7. Click the send button to send the invites to the mailing list
