@@ -27,6 +27,7 @@
                   <th width="15%"> Guests List</th>
                   <th width ="20%"> Invite List </th>
                   <th width="15%"> Menus </th>
+                  <th width ="20%"> Email Guestlist </th>
                 </tr>
               </thead>
               <tbody>
@@ -49,7 +50,7 @@
                   </td>
                   <td>
                     <a href="{{ url_for('admin.event_guestlist', id=event.id) }}">
-                      <i class="fa fa-pencil"></i> View  
+                      <i class="fa fa-eye"></i> View  
                     </a>
                   </td>
                   <td>
@@ -60,9 +61,12 @@
                   <td>
                     <a href="{{ url_for('admin.event_menus', id=event.id) }}">
                       <i class="fa fa-file-photo-o"></i> View  
+                    <a href="{{ url_for('admin.event_guestlist_mailinglist', id=event.id) }}">
+                      <i class="fa fa-plus"></i> Send Email
                     </a>
                   </td>
                 </tr>
+
               {% endfor %}
               </tbody>
             </table>

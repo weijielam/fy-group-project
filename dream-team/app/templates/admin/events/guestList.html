@@ -20,6 +20,8 @@
                   <th width="20%"> First Name </th>
                   <th width="20%"> Last Name </th>
                   <th width="30%"> E-mail </th>
+                  <th width ="40%"> Special Requirements
+                  <th width="30%"> Edit Special Requirements 
                   <th width="20%"> Remove </th>
                 </tr>
               </thead>
@@ -30,7 +32,14 @@
                   <td> {{ guest.first_name }} </td>
                   <td> {{ guest.last_name }} </td>
                   <td> {{ guest.email }} </td>
+                  <td> {{ guest.needs }} </td>
+                  <td> 
+                    <a href="{{ url_for('admin.needs_event', eid=id, uid=guest.id) }}">
+                      <i class="fa fa-pencil"></i> Edit needs
+                    </a>
+                  </td>
                   <td class="center"><a href=" {{ url_for('admin.remove_guest', gid=guest.id, eid=id) }} "><button type="button" class="btn btn-primary btn-xs completed_box">X</button></a></td>
+                 
                 </tr>
               {% endfor %}
               </tbody>

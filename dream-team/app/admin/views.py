@@ -4,7 +4,7 @@ from flask import abort, flash, redirect, render_template, url_for,request
 from flask_login import current_user, login_required
 from flask_mail import Mail, Message
 from . import admin
-from forms import EventForm
+from forms import EventForm, GuestListForm
 from email import EmailForm
 from forms import EventForm, AdminAccessForm
 
@@ -111,6 +111,7 @@ def invite_event(id):
     not_invited = []
     already_invd = False
 
+    event = Event.query.get_or_404(id)
     users = User.query.all()
     guests = GuestList.query.filter_by(event_id=id).all()
 
@@ -122,9 +123,35 @@ def invite_event(id):
         if not already_invd:
             not_invited.append(user)
 
+    return render_template('admin/events/invitelist.html', action="Invite", 
+                                users=not_invited, eid=id, title="Invite List")
+
+
+@admin.route('/events/needs/<int:eid>/<int:uid>', methods=['GET', 'POST'])
+@login_required
+def needs_event(eid, uid):
+    """
+    Needs for a user
+    """
+    check_admin()
+    add_event = False
+
     
-    return render_template('admin/events/invitelist.html', action="Invite",                      
-                           users=not_invited, eid=id, title="Invite List")
+    form = GuestListForm()
+    user = User.query.get_or_404(uid)
+    form = GuestListForm(obj=user)
+    if form.validate_on_submit():
+       
+        user.needs = form.needs.data
+        db.session.commit()
+        flash('You have successfully edited a users needs.')
+
+        # redirect to the events page
+        return redirect(url_for('admin.event_guestlist', id=eid))
+
+    user.needs = form.needs.data 
+    return render_template('admin/events/userneeds.html', action="Needs",                      
+                           id =eid, user=user, form=form, title="needs")
 
 @admin.route('/events/delete/<int:id>', methods=['GET', 'POST'])
 @login_required
@@ -214,7 +241,7 @@ def mailinglist_email(subject, body):
 
 # Send mass email to users with message
 @login_required
-def send_email_to_users(users, message, subject):
+def send_email_to_users(users, subject, message):
     with mail.connect() as conn:
         for user in users:
             message = message
@@ -223,6 +250,39 @@ def send_email_to_users(users, message, subject):
                             body = message, subject = subject)
             conn.send(msg)
         return "Sent"
+
+# send email to all users in guest list
+@admin.route('/events/guestlist/<int:id>/send', methods=['GET', 'POST'])
+@login_required
+def event_guestlist_mailinglist(id):
+    """
+    View the guest list for an event
+    """
+    check_admin()
+    guests = []
+    message = "Hi attend this event"
+    subject = "Event Invite: "
+
+    guestList = GuestList.query.filter_by(event_id=id).all()
+    for guest in guestList:
+        guests.append(User.query.get_or_404(guest.guest_id))
+
+    form = EmailForm()
+    if form.validate_on_submit():
+        subject = form.subject.data 
+        body    = form.body.data
+        try:
+            flash('Email sent to guestlist mailing list')
+            send_email_to_users(guests, subject, body)
+            return redirect(url_for('admin.list_events'))
+            
+        except:
+            #in case email fails
+            flash('ERROR')
+
+     
+    return render_template('admin/events/mailinglist.html',
+                           form = form, users=guests, title="mailinglist")
 
 
 @admin.route('/events/guestlist/<int:id>', methods=['GET', 'POST'])
@@ -234,13 +294,18 @@ def event_guestlist(id):
     check_admin()
     guests = []
     add_event = False
+    event = Event.query.get_or_404(id)
+
 
     guestList = GuestList.query.filter_by(event_id=id).all()
     for guest in guestList:
         guests.append(User.query.get_or_404(guest.guest_id))
+   
+
 
     return render_template('admin/events/guestList.html', action="View",
-                           guests=guests, id=id, title="Guest List")
+                           guests=guests, gl=guestList, id=id, title="Guest List")
+
 
 
 

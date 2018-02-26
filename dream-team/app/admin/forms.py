@@ -23,3 +23,9 @@ class AdminAccessForm(FlaskForm):
     email = StringField('Would you like to grant admin access to someone? Enter their email below!', validators=[DataRequired()])
     submit = SubmitField('Grant Access')
     
+class GuestListForm(FlaskForm):
+    """
+    Form for edit needs of user on guestlist
+    """
+    needs = StringField('needs')
+    submit = SubmitField('Submit')

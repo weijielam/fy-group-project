@@ -1,0 +1,8 @@
+# Send Email to Mailing List
+**Must have created an admin first following the Create Admin.txt instructions. **
+**Must have users**
+1. Login in as admin user: admin@admin.com pass: admin2018
+2. Click on the "Mailing List" tab located at the top of the dashboard
+3. Enter in the subject and message you want to send your Mailing List
+4. Click the Send button to send email.
+

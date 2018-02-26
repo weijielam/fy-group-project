@@ -21,6 +21,7 @@ class User(UserMixin, db.Model):
     last_name = db.Column(db.String(60), index=True)
     password_hash = db.Column(db.String(128))
     is_admin = db.Column(db.Boolean, default=False)
+    needs = db.Column(db.String(300))
 
     @property
     def password(self):
@@ -91,19 +92,20 @@ class Event(db.Model):
 Create guest list
 '''
 class GuestList(db.Model):
-	"""
-	Create guest list table
-	"""
+    """
+    Create guest list table
+    """
 
-	__tablename__ = 'guestLists'
+    __tablename__ = 'guestLists'
 
-	id = db.Column(db.Integer, primary_key=True)
-	event_id = db.Column(db.Integer, db.ForeignKey('events.id'))
-	guest_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-	is_attending = db.Column(db.Boolean, default=False)
+    id = db.Column(db.Integer, primary_key=True)
+    event_id = db.Column(db.Integer, db.ForeignKey('events.id'))
+    guest_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    is_attending = db.Column(db.Boolean, default=False)
+    
 
-	def __repr__(self):
-		return '<GuestList: {}>'.format(self.id)
+    def __repr__(self):
+        return '<GuestList: {}>'.format(self.id)
 
 
 

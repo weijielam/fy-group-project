@@ -1,4 +1,5 @@
 Create an admin
+***This is for first time setup. An admin can make other users admin after they've been added***
 
 1. Open terminal
 type:
