@@ -120,13 +120,8 @@ def invite_event(id):
         if not already_invd:
             not_invited.append(user)
 
-    send_email_to_users(not_invited, "You have been invited to attend our event.\n" +
-        "The event will be taking place at " + str(event.location) + " at " + str(event.timeD) + ". Click below to R.S.V.P."
-        + "\nlocalhost:5000/" + str(event.id) + "/" + str(user.id), 
-        "You are invited to " + str(event.name) + ".")
-    flash('Emails sent.')
-
-    return redirect(url_for('admin.list_events', id=id))
+    return render_template('admin/events/invitelist.html', action="Invite", 
+                                users=not_invited, eid=id, title="Invite List")
 
 
 @admin.route('/events/delete/<int:id>', methods=['GET', 'POST'])
