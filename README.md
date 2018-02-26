@@ -39,43 +39,62 @@ sudo apt-get install mysql-server
 ```
 mysql -u root -p
 --enter admin password
-CREATE USER 'dt_admin'@'localhost' IDENTIFIED BY 'dt2016'
-CREATE DATABASE dreamteam_db
-GRANT ALL PRIVILEGES ON dreamteam_db . * TO 'dt_admin'@'localhost'
+CREATE USER 'dt_admin'@'localhost' IDENTIFIED BY 'dt2016';
+CREATE DATABASE dreamteam_db;
+GRANT ALL PRIVILEGES ON dreamteam_db . * TO 'dt_admin'@'localhost';
+\q
 ```
 
 6. Install python-pip
 ```
 sudo apt-get install python-pip
+pip install --upgrade pip
 ```
 
 7. Install pip dependencies
 ```
 cd fygroupproject/
 source Envs/my-venv/bin/activate
+sudo pip install -r requirements.txt
+```
+
+8. Setup flask environment
+```
 cd dream-team
-pip install -r requirements.txt
-```
-
-8. Initialise database tables
-```
-flask db upgrade
-```
-
-9. Setup flask environment
-```
 export FLASK_CONFIG=development
 export FLASK_APP=run.py
 ```
 
-10. Run server
+9. Initialise database tables
+```
+flask db upgrade
+```
+
+10. Create an admin account 
+```
+flask shell
+>>> from app.models import User
+>>> from app import db
+>>> admin = User(email="admin@admin.com",username="admin",password="admin2018",is_admin=True)
+>>> db.session.add(admin)
+>>> db.session.commit()
+>>> exit()
+```
+
+11. Run server
 ```
 flask run
 ```
 
-11. Open site
+12. Open site
 ```
 Open browser
 enter "localhost:5000" into url bar
+```
+
+13. Login as admin
+```
+Enter email "admin@admin.com"
+Enter password "admin2018"
 ```
 
