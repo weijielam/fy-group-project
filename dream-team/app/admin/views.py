@@ -105,11 +105,23 @@ def invite_event(id):
     """
     check_admin()
 
+    not_invited = []
+    already_invd = False
+
     users = User.query.all()
+    guests = GuestList.query.filter_by(event_id=id).all()
+
+    for user in users:
+        already_invd = False
+        for guest in guests:
+            if user.id == guest.guest_id:
+                already_invd = True
+        if not already_invd:
+            not_invited.append(user)
 
     
     return render_template('admin/events/invitelist.html', action="Invite",                      
-                           users=users, title="Invite List")
+                           users=not_invited, eid=id, title="Invite List")
 
 @admin.route('/events/delete/<int:id>', methods=['GET', 'POST'])
 @login_required
@@ -120,6 +132,13 @@ def delete_event(id):
     check_admin()
 
     event = Event.query.get_or_404(id)
+    guests = GuestList.query.filter_by(event_id=event.id).all()
+
+    for guest in guests:
+        if guest.event_id == event.id:
+            db.session.delete(guest)
+            db.session.commit()
+
     db.session.delete(event)
     db.session.commit()
     flash('You have successfully deleted the event.')
@@ -231,7 +250,53 @@ def event_guestlist(id):
         guests.append(User.query.get_or_404(guest.guest_id))
 
     return render_template('admin/events/guestList.html', action="View",
-                           guests=guests, title="Guest List")
+                           guests=guests, id=id, title="Guest List")
+
+
+
+@admin.route('/events/removeguest/<int:eid>/<int:gid>', methods=['GET', 'POST'])
+@login_required
+def remove_guest(eid, gid):
+    """
+    Remove a guest from an event
+    """
+    check_admin()
+
+    guestList = GuestList.query.filter_by(event_id=eid).all()
+    for guest in guestList:
+        print("guest.guest_id: " + str(guest.guest_id))
+        print("gid: " + str(gid))
+        if guest.guest_id == gid:
+            db.session.delete(guest)
+            db.session.commit()
+            
+    flash('You have successfully removed a user from the event.')
+
+    # redirect to the events page
+    return redirect(url_for('admin.event_guestlist', id=eid))
+
+    return render_template(title="Removed Guest")
+
+
+@admin.route('/events/addguest/<int:eid>/<int:gid>', methods=['GET', 'POST'])
+@login_required
+def add_guest(eid, gid):
+    """
+    Add a guest to an event
+    """
+    check_admin()
+
+    guest = GuestList(guest_id=gid, event_id=eid, is_attending=1)
+
+    db.session.add(guest)
+    db.session.commit()
+            
+    flash('You have successfully added a user to the event.')
+
+    # redirect to the events page
+    return redirect(url_for('admin.invite_event', id=eid))
+    return render_template(title="Added Guest")
+
 
 @admin.route('/userlist', methods=['GET', 'POST'])
 @login_required
@@ -258,4 +323,3 @@ def userlist():
 
     return render_template('admin/userlist/userlist.html',
                            users=users, title="User List", form=form)    
-
