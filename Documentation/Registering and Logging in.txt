@@ -1,0 +1,13 @@
+How to Register: 
+
+1. Click Register button and you will be redirected to localhost:5000/register
+2. Enter all your details such as email, name etc.
+3. You will automatically be set as not an admin.
+4. Click Register and your details will be added to the database. 
+
+
+How to login:
+*You must have registered in order to login*
+1. Enter the email and password associated with your registered account. 
+2. Click login.
+3. You will then be brought to either the user dashboard or the admin dashboard depending on your admin status. 

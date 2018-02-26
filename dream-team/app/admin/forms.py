@@ -13,3 +13,12 @@ class EventForm(FlaskForm):
     location = StringField('Location', validators=[DataRequired()])
     description = StringField('Description', validators=[DataRequired()])
     submit = SubmitField('Submit')
+
+
+class AdminAccessForm(FlaskForm):
+    """
+    Form to grant admin access
+    """
+    email = StringField('Email', validators=[DataRequired()])
+    submit = SubmitField('Grant Access')
+    
