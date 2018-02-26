@@ -1,0 +1,28 @@
+<!-- app/templates/admin/departments/departments.html -->
+
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "bootstrap/utils.html" as utils %}
+{% extends "base.html" %}
+{% block title %}Event Mailing List{% endblock %}
+{% block body %}
+<div class="content-section">
+  <div class="outer">
+    <div class="middle">
+      <div class="inner">
+        <br/>
+        {{ utils.flashed_messages() }}
+        <br/>
+        <h1 style="text-align:center;">Mailing List - Send Email To Guestlist in Event</h1>
+        <div class="center">
+            {{ wtf.quick_form(form) }}
+        </div>
+          <!-- <a href="{{ url_for('admin.mailinglist_email') }}" class="btn btn-default btn-lg">
+            <i class="fa fa-paper-plane"></i>
+            Send Email
+          </a> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
