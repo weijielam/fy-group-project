@@ -1,10 +1,10 @@
 # app/admin/views.py
 
-from flask import abort, flash, redirect, render_template, url_for
+from flask import abort, flash, redirect, render_template, url_for,request
 from flask_login import current_user, login_required
 from flask_mail import Mail, Message
 from . import admin
-from forms import EventForm
+from forms import EventForm, AdminAccessForm
 from .. import db
 from app import mail
 from ..models import Event, GuestList, User
@@ -152,7 +152,7 @@ def send_email():
             message = '...'
             subject = "hello, %s" % user.username
             msg = Message(recipients=[user.email],
-                            sender="weijielam@gmail.com",
+                            sender="fygptest@gmail.com",
                           body=message,
                           subject=subject)
 
@@ -183,11 +183,23 @@ def userlist():
     """
     List all events
     """
+    
     check_admin()
+
+    form = AdminAccessForm()
+    if form.validate_on_submit():
+        email_of_user= form.email.data
+        print("The email you entered", email_of_user)
+        user = User.query.filter_by(email=email_of_user).all()
+        user[0].is_admin=1
+        db.session.commit()
 
     events = Event.query.all()
     users = User.query.all()
 
+    
+
+
     return render_template('admin/userlist/userlist.html',
-                           users=users, title="User List")    
+                           users=users, title="User List", form=form)    
 

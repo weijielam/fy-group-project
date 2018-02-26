@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% import "bootstrap/utils.html" as utils %}
+{% import "bootstrap/wtf.html" as wtf %}
 {% block title %}User List{% endblock %}
 {% block body %}
 <div class="content-section">
@@ -10,6 +11,11 @@
         {{ utils.flashed_messages() }}
         <br/>
         <h1 style="text-align:center;">User Database</h1>
+
+        <div style="text-align:center;"> Would you like to grant admin access to someone? Enter their email below!</div>
+        <div class="center" style="text-align:center;">
+        {{ wtf.quick_form(form) }}
+        </div>
         {% if users %}
           <hr class="intro-divider">
           <div class="center">
@@ -18,8 +24,9 @@
                 <tr>
                   <th width="15%"> Username </th>
                   <th width="15%"> First Name </th>
-                  <th width="30%"> Last Name </th>
-                  <th width="40%"> Email </th>
+                  <th width="20%"> Last Name </th>
+                  <th width="30%"> Email </th>
+                  <th width="20%"> Is Admin? </th>
                 </tr>
               </thead>
               <tbody>
@@ -29,6 +36,7 @@
                   <td> {{ user.first_name }} </td>
                   <td> {{ user.last_name }} </td>
                   <td> {{ user.email }} </td>
+                  <td> {{ user.is_admin }} </td>
                 </tr>
               {% endfor %}
               </tbody>
