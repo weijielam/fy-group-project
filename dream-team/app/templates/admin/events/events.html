@@ -26,6 +26,7 @@
                   <th width="20%"> Delete </th>
                   <th width="15%"> Guests List</th>
                   <th width ="20%"> Invite List </th>
+                  <th width="15%"> Menus </th>
                 </tr>
               </thead>
               <tbody>
@@ -54,6 +55,11 @@
                   <td>
                     <a href="{{ url_for('admin.invite_event', id=event.id) }}">
                       <i class="fa fa-plus"></i> Invite 
+                    </a>
+                  </td>
+                  <td>
+                    <a href="{{ url_for('admin.event_menus', id=event.id) }}">
+                      <i class="fa fa-file-photo-o"></i> View  
                     </a>
                   </td>
                 </tr>
