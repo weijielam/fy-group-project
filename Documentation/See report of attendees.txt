@@ -1,0 +1,8 @@
+See report of attendees
+**requires an event to already have been created. Follow Create and edit events to do this**
+**requires user to be logged in to admin account. Follow registering and logging in to do this**
+
+1. Type 'bash run.sh' to run website
+2. Open web browser to 'localhost:5000'
+3. Click on events tab at top of page
+4. Click on guest list tab on desired event
