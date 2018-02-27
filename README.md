@@ -55,6 +55,7 @@ exit()
 
 6. Running Flask App: run.sh
 ```
+cd ..
 bash run.sh
 ```
 
@@ -149,4 +150,4 @@ Enter password "admin2018"
 
 -------
 
-For Feature Documentation go to [Features]()
+For Feature Documentation go to Documentation folder
