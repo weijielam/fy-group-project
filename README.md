@@ -58,6 +58,9 @@ exit()
 cd ..
 bash run.sh
 ```
+7. Open up browser at localhost:5000
+
+For Feature Documentation go to Documentation folder
 
 ## Manual Install and Run Instructions from Fresh Install Of Ubuntu 16.04
 1. Install Git and clone the repo
