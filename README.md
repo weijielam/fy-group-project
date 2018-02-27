@@ -33,12 +33,13 @@ GRANT ALL PRIVILEGES ON dreamteam_db . * TO 'dt_admin'@'localhost';
 
 4. Set up ENVIRONMENT VARIABLES and database
 ```
+cd dream-team
 export FLASK_CONFIG=development
-export FLASK_APP=dream-team/run.py
+export FLASK_APP=run.py
 flask db upgrade
 ```
 
-4. Create an admin account 
+5. Create an admin account 
 ```
 flask shell
 ```
@@ -52,7 +53,7 @@ db.session.commit()
 exit()
 ```
 
-5. Running Flask App: run.sh
+6. Running Flask App: run.sh
 ```
 bash run.sh
 ```
