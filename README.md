@@ -62,7 +62,7 @@ bash run.sh
 
 For Feature Documentation go to Documentation folder
 
-[Feature Documentation](Documentation/Feature Documentation.md)
+[Feature Documentation](/Documentation/Feature Documentation.md)
 ## Manual Install and Run Instructions from Fresh Install Of Ubuntu 16.04
 1. Install Git and clone the repo
 ```
