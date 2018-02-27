@@ -1,4 +1,4 @@
-Documentation for feature list
+# Documentation for feature list
 
 1. I want to be able to login (change password/create account)
 
