@@ -2,20 +2,20 @@
 
 1. I want to be able to login (change password/create account)
 
-Create Account:
-	1. If login, logout at top right hand corner
-	2. Click 'Register' from top right hand corner
-	3. Enter in credentials in the fields
-	4. Click 'Register' at bottom of page
+	Create Account:
+		1. If login, logout at top right hand corner
+		2. Click 'Register' from top right hand corner
+		3. Enter in credentials in the fields
+		4. Click 'Register' at bottom of page
 
-Change password:
-	1. Click the "Forgot your password?" button on the login screen.
-	2. Enter the email associated with your account. 
-	3. Click send email. 
-	4. You should then head over to your email to receive a unique password reset url.
-	5. Copy and paste this url into your browser and it'll redirect you to the password reset form. 
-	6. Enter the new password twice and click reset password. 
-	7. Proceed to login with your new password! 
+	Change password:
+		1. Click the "Forgot your password?" button on the login screen.
+		2. Enter the email associated with your account. 
+		3. Click send email. 
+		4. You should then head over to your email to receive a unique password reset url.
+		5. Copy and paste this url into your browser and it'll redirect you to the password reset form. 
+		6. Enter the new password twice and click reset password. 
+		7. Proceed to login with your new password! 
 
 2. I want to be able to give admin access to other people
 	*REQUIRES ADMIN ACCESS*
