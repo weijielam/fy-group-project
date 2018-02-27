@@ -16,9 +16,9 @@ git clone https://github.com/weijielam/fygroupproject.git
 2. Run install.sh script, activate virtualenv, install requirements
 
 ```
-bash install.sh
+sudo bash install.sh
 source Envs/my-venv/bin/activate
-pip install -r requirements.txt
+sudo pip install -r requirements.txt
 ``` 
 
 3. Set up sql user and database
