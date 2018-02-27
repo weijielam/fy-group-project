@@ -9,12 +9,18 @@ Dependencies
 - pip
 
 ## Install and Run Instructions using scripts
-1. Installation: run install.sh
+1. Install Git and clone the repo
 ```
-bash install.sh
+sudo apt install git
+git clone https://github.com/weijielam/fygroupproject.git
 ```
 
-2. Set up sql user and database
+2. Run install.sh script
+```
+bash install.sh
+``` 
+
+3. Set up sql user and database
 ```
 mysql -u root -p
 --enter admin password
@@ -24,9 +30,9 @@ GRANT ALL PRIVILEGES ON dreamteam_db . * TO 'dt_admin'@'localhost';
 \q
 ```
 
-3. Running Flask App: run.sh
+4. Running Flask App: run.sh
 ```
-bash install.sh
+bash run.sh
 ```
 
 ## Manual Install and Run Instructions from Fresh Install Of Ubuntu 16.04
