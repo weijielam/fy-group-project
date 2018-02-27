@@ -190,8 +190,9 @@ def event_menus(id):
     check_admin()
     event_id = Event.query.filter_by(id=id).all()
     menu_path = event_id[0].menus
-    im = Image.open((menu_path))
-    im.show()
+    if menu_path != 'menus/':
+        im = Image.open((menu_path))
+        im.show()
 
     return render_template('admin/events/menus.html', action="View",
                             title="Menu")

@@ -1,18 +1,68 @@
 # fyp-group-project
-Final Year Group Project
-
-
-This project shows you how to build a basic web application using popular web technologies 
-like NPM, Webpack, React and Python.
+Group 7: Final Year Group Project
 
 Dependencies
 - Ubuntu 16.04 LTS
-- Node.js v8.9.4
-- NPM 5.6.0
 - Python
 - pip
 
-## Installing and Running from Fresh Install Of Ubuntu 16.04
+## Install and Run Instructions using scripts
+1. Install Git and clone the repo
+```
+sudo apt install git
+git clone https://github.com/weijielam/fygroupproject.git
+```
+
+2. Run install.sh script, activate virtualenv, install requirements
+
+```
+sudo bash install.sh
+source Envs/my-venv/bin/activate
+sudo pip install -r requirements.txt
+``` 
+
+3. Set up sql user and database
+```
+mysql -u root -p
+--enter admin password
+CREATE USER 'dt_admin'@'localhost' IDENTIFIED BY 'dt2016';
+CREATE DATABASE dreamteam_db;
+GRANT ALL PRIVILEGES ON dreamteam_db . * TO 'dt_admin'@'localhost';
+\q
+```
+
+4. Set up ENVIRONMENT VARIABLES and database
+```
+cd dream-team
+export FLASK_CONFIG=development
+export FLASK_APP=run.py
+flask db upgrade
+```
+
+5. Create an admin account 
+```
+flask shell
+```
+
+```
+from app.models import User
+from app import db
+admin = User(email="admin@admin.com",username="admin",password="admin2018",is_admin=True)
+db.session.add(admin)
+db.session.commit()
+exit()
+```
+
+6. Running Flask App: run.sh
+```
+cd ..
+bash run.sh
+```
+7. Open up browser at localhost:5000
+
+For Feature Documentation go to Documentation folder
+
+## Manual Install and Run Instructions from Fresh Install Of Ubuntu 16.04
 1. Install Git and clone the repo
 ```
 sudo apt install git
@@ -73,12 +123,15 @@ flask db upgrade
 10. Create an admin account 
 ```
 flask shell
->>> from app.models import User
->>> from app import db
->>> admin = User(email="admin@admin.com",username="admin",password="admin2018",is_admin=True)
->>> db.session.add(admin)
->>> db.session.commit()
->>> exit()
+```
+
+```
+from app.models import User
+from app import db
+admin = User(email="admin@admin.com",username="admin",password="admin2018",is_admin=True)
+db.session.add(admin)
+db.session.commit()
+exit()
 ```
 
 11. Run server
@@ -98,3 +151,6 @@ Enter email "admin@admin.com"
 Enter password "admin2018"
 ```
 
+-------
+
+For Feature Documentation go to Documentation folder
