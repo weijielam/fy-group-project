@@ -1,8 +1,0 @@
-To keep track of possible/previous guests:
-**Must have created an admin first following the create admin.txt instructions. **
-**You Must register user accounts so that they can be displayed following the register account.txt instructions**
-
-1. Login in as admin user: admin@admin.com
-		     pass: admin2018
-2. Click on the user tab at the top right of the dashboard
-3. User page will display all registered users with all their information

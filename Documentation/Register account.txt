@@ -1,7 +1,0 @@
-Register Account:
-
-1. If login, logout at top right hand corner
-2. Click 'Register' from top right hand corner
-3. Enter in credentials in the fields
-4. Click 'Register' at bottom of page
-
