@@ -60,9 +60,10 @@ bash run.sh
 ```
 7. Open up browser at localhost:5000
 
-For Feature Documentation go to Documentation folder
+For Feature Documentation go to Documentation/Feature Documentation.md
 
-[Feature Documentation](repo/blob/master/Documentation/Feature Documentation.md)
+[Feature Documentation](/Documentation/Feature Documentation.md)
+
 ## Manual Install and Run Instructions from Fresh Install Of Ubuntu 16.04
 1. Install Git and clone the repo
 ```
