@@ -3,12 +3,14 @@
 1. I want to be able to login (change password/create account)
 
 	Create Account:
+	
 		1. If login, logout at top right hand corner
 		2. Click 'Register' from top right hand corner
 		3. Enter in credentials in the fields
 		4. Click 'Register' at bottom of page
 
 	Change password:
+	
 		1. Click the "Forgot your password?" button on the login screen.
 		2. Enter the email associated with your account. 
 		3. Click send email. 
