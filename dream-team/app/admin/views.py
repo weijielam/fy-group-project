@@ -14,6 +14,7 @@ from ..models import Event, GuestList, User
 from PIL import Image 
 import webbrowser
 import pathlib
+import re
 
 def check_admin():
     """
@@ -96,6 +97,8 @@ def edit_event(id):
     form.name.data = event.name
     form.timeD.data = event.timeD
     form.location.data = event.location
+    menu = re.sub('menus/', '', event.menus)
+    form.menu.data= menu
     return render_template('admin/events/event.html', action="Edit",
                            add_event=add_event, form=form,
                            event=event, title="Edit Event")
