@@ -3,8 +3,6 @@ Group 7: Final Year Group Project
 
 Dependencies
 - Ubuntu 16.04 LTS
-- Node.js v8.9.4
-- NPM 5.6.0
 - Python
 - pip
 
@@ -15,9 +13,12 @@ sudo apt install git
 git clone https://github.com/weijielam/fygroupproject.git
 ```
 
-2. Run install.sh script
+2. Run install.sh script, activate virtualenv, install requirements
+
 ```
 bash install.sh
+source Envs/my-venv/bin/activate
+pip install -r requirements.txt
 ``` 
 
 3. Set up sql user and database
@@ -28,6 +29,13 @@ CREATE USER 'dt_admin'@'localhost' IDENTIFIED BY 'dt2016';
 CREATE DATABASE dreamteam_db;
 GRANT ALL PRIVILEGES ON dreamteam_db . * TO 'dt_admin'@'localhost';
 \q
+```
+
+4. Set up ENVIRONMENT VARIABLES and database
+```
+export FLASK_CONFIG=development
+export FLASK_APP=dream-team/run.py
+flask db upgrade
 ```
 
 4. Create an admin account 
@@ -43,7 +51,6 @@ db.session.add(admin)
 db.session.commit()
 exit()
 ```
-
 
 5. Running Flask App: run.sh
 ```
