@@ -30,7 +30,22 @@ GRANT ALL PRIVILEGES ON dreamteam_db . * TO 'dt_admin'@'localhost';
 \q
 ```
 
-4. Running Flask App: run.sh
+4. Create an admin account 
+```
+flask shell
+```
+
+```
+from app.models import User
+from app import db
+admin = User(email="admin@admin.com",username="admin",password="admin2018",is_admin=True)
+db.session.add(admin)
+db.session.commit()
+exit()
+```
+
+
+5. Running Flask App: run.sh
 ```
 bash run.sh
 ```
