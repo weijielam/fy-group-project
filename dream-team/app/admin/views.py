@@ -200,7 +200,7 @@ def event_menus(id):
         im.show()
 
     return render_template('admin/events/menus.html', action="View",
-                            title="Menu")
+                            id =id, title="Menu")
 
 #########END MENUS CODE###############
 
@@ -453,20 +453,25 @@ def userlist():
 
 #####User attended events link in UserList########
 
-@admin.route('/userlist/PreviousEvents/<int:id>', methods=['GET', 'POST'])
+@admin.route('/userlist/AttendEvents/<int:id>', methods=['GET', 'POST'])
 @login_required
-def previous_events(id):
+def attend_events(id):
     """
     View the previous events attended by a user
     """
 
+    events = []
+
     check_admin()
-    user_id = User.query.filter_by(id=id).all()
-  
+    gl = GuestList.query.all()
+    user = User.query.get_or_404(id)
+    for item in gl:
+        if item.guest_id == id and item.is_attending == True:
+            events.append(Event.query.get_or_404(item.event_id))
     
 
-    return render_template('admin/userlist/AttendedEvents.html', action="View",
-                            title="Previous events")
+    return render_template('admin/userlist/AttendEvents.html', action="View",
+                            title="Previous events", events=events, user=user)
 
 #########User attended events link in UserList###############
 
@@ -485,4 +490,4 @@ def view_event(id):
     event = Event.query.get_or_404(id)
    
     return render_template('admin/events/viewevent.html', action="View",
-                           event=event, title="View Event")
+                           id =id, event=event, title="View Event")

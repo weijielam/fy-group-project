@@ -52,7 +52,7 @@
             <h3> No guests have been added. </h3>
             <hr class="intro-divider">
         {% endif %}
-          <a href="{{ url_for('admin.list_events') }}" class="btn btn-default btn-lg">
+          <a href="{{ url_for('admin.view_event', id=id) }}" class="btn btn-default btn-lg">
             <i class="fa fa-mail-reply"></i>
             Return
           </a>
