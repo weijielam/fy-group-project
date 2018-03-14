@@ -22,6 +22,7 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(128))
     is_admin = db.Column(db.Boolean, default=False)
     needs = db.Column(db.String(300))
+    is_subscribed = db.Column(db.Boolean, default=False)
 
     @property
     def password(self):
