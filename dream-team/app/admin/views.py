@@ -200,7 +200,7 @@ def event_menus(id):
         im.show()
 
     return render_template('admin/events/menus.html', action="View",
-                            title="Menu")
+                            id =id, title="Menu")
 
 #########END MENUS CODE###############
 
@@ -288,7 +288,7 @@ def event_guestlist_mailinglist(id):
 
      
     return render_template('admin/events/mailinglist.html',
-                           form = form, users=guests, title="mailinglist")
+                           form = form, users=guests, title="mailinglist", id=id)
 
 
 @admin.route('/events/guestlist/<int:id>', methods=['GET', 'POST'])
@@ -490,4 +490,4 @@ def view_event(id):
     event = Event.query.get_or_404(id)
    
     return render_template('admin/events/viewevent.html', action="View",
-                           event=event, title="View Event")
+                           id =id, event=event, title="View Event")
