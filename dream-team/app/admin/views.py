@@ -200,7 +200,7 @@ def event_menus(id):
         im.show()
 
     return render_template('admin/events/menus.html', action="View",
-                            title="Menu")
+                            id =id, title="Menu")
 
 #########END MENUS CODE###############
 
@@ -485,4 +485,4 @@ def view_event(id):
     event = Event.query.get_or_404(id)
    
     return render_template('admin/events/viewevent.html', action="View",
-                           event=event, title="View Event")
+                           id =id, event=event, title="View Event")
