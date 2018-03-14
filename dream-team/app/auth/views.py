@@ -135,7 +135,10 @@ def settings():
     if form2.validate_on_submit():
             user.is_subscribed =  not user.is_subscribed
             db.session.commit()
-            flash("You are successfully unsubscribed")
+            if user.is_subscribed: 
+                flash("You are successfully subscribed")
+            else:
+                flash("You are successfully unsubscribed")
 
 
     return render_template('auth/settings.html', form=form, form2=form2, user=user, title='Settings') 

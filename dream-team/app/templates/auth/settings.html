@@ -43,7 +43,11 @@
     {{ wtf.quick_form(form) }}
   </div>
   <div class="center">
+    {% if user.is_subscribed %}
     <h1 style="text-align:center;">Unsubscribe from Mailing List</h1>
+    {% else %}
+    <h1 style="text-align:center;">Subscribe to Mailing List</h1
+    {% endif %}
     <hr class="intro-divider">
     <br/>
     {{ wtf.quick_form(form2) }}

@@ -62,4 +62,4 @@ class ResetPasswordSubmit(FlaskForm):
     submit = SubmitField('Change Password')
 
 class Unsubscribe(FlaskForm):
-    unsubscribe = SubmitField('Unsubscribe')
+    unsubscribe = SubmitField('Toggle Subscription')
