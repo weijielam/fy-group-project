@@ -20,6 +20,7 @@ class User(UserMixin, db.Model):
     first_name = db.Column(db.String(60), index=True)
     last_name = db.Column(db.String(60), index=True)
     password_hash = db.Column(db.String(128))
+    events_attended = db.Column(db.String(200))
     is_admin = db.Column(db.Boolean, default=False)
     needs = db.Column(db.String(300))
     is_subscribed = db.Column(db.Boolean, default=False)

@@ -24,6 +24,7 @@
                   <th width="15%"> First Name </th>
                   <th width="20%"> Last Name </th>
                   <th width="30%"> Email </th>
+                  <th width="20"> Previous Events </th>
                   <th width="20%"> Is Admin? </th>
                 </tr>
               </thead>
@@ -34,6 +35,11 @@
                   <td> {{ user.first_name }} </td>
                   <td> {{ user.last_name }} </td>
                   <td> {{ user.email }} </td>
+                  <td>
+                    <a href="{{ url_for('admin.previous_events', id=user.id) }}">
+                      <i class="fa fa-view"></i> View 
+                    </a>
+                  </td>
                   <td> {{ user.is_admin }} </td>
                 </tr>
               {% endfor %}
