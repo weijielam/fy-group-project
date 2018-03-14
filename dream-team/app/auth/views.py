@@ -115,7 +115,22 @@ def verify_token(token):
         return User.query.get(id)
     return None   
 
-######### END RESET PASSWORD CODE ########    
+######### END RESET PASSWORD CODE ########   
+
+######### START SETTINGS TAB CODE ########
+@auth.route('/settings')
+@login_required
+def settings():
+    #Settings tab for both users and admins
+    form = ResetPasswordSubmit()
+    if form.validate_on_submit():
+            verified_result.password=form.password.data
+            db.session.commit()
+            flash("Password updated successfully")
+
+
+
+    return render_template('auth/settings.html', form=form, title='Settings') 
 
 @auth.route('/logout')
 @login_required
