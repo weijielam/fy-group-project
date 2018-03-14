@@ -1,0 +1,85 @@
+<!-- app/templates/admin/events/events.html -->
+
+{% import "bootstrap/utils.html" as utils %}
+{% extends "base.html" %}
+{% block title %}Event{% endblock %}
+{% block body %}
+<div class="content-section">
+  <div class="outer">
+    <div class="middle">
+      <div class="inner">
+        <br/>
+        {{ utils.flashed_messages() }}
+        <br/>
+        <h1 style="text-align:center;">Event</h1>
+          <hr class="intro-divider">
+          <div class="center">
+            <table class="table table-sm table-inverse">
+              <thead>
+                <tr
+                  class="table-active">
+                  <th width="15%"> Name </th> <td> {{ event.name }} </td> </tr>
+                  <tr>
+                  <th width="15%"> Time </th>
+                  <th width="15%"> Date </th>
+                  <th width="15%"> Location </th>
+                  <th width="40%"> Description </th>
+                  <th width="15%"> Edit </th>
+                  <th width="20%"> Delete </th>
+                  <th width="15%"> Guests List</th>
+                  <th width ="20%"> Invite List </th>
+                  <th width="15%"> Menus </th>
+                  <th width ="20%"> Email Guestlist </th>
+                </tr>
+              </thead>
+              <tbody>
+             
+              <tr>
+                
+                <td> {{ event.timeD }} </td>
+                <td> {{ event.date }} </td>
+                <td> {{ event.location }} </td>
+                <td> {{ event.description }} </td>
+                
+                <td>
+                  <a href="{{ url_for('admin.edit_event', id=event.id) }}">
+                    <i class="fa fa-pencil"></i> Edit 
+                  </a>
+                </td>
+                <td>
+                  <a href="{{ url_for('admin.delete_event', id=event.id) }}">
+                    <i class="fa fa-trash"></i> Delete 
+                  </a>
+                </td>
+                <td>
+                  <a href="{{ url_for('admin.event_guestlist', id=event.id) }}">
+                    <i class="fa fa-eye"></i> View  
+                  </a>
+                </td>
+                <td>
+                  <a href="{{ url_for('admin.invite_event', id=event.id) }}">
+                    <i class="fa fa-plus"></i> Invite 
+                  </a>
+                </td>
+                <td>
+                  <a href="{{ url_for('admin.event_menus', id=event.id) }}">
+                    <i class="fa fa-file-photo-o"></i> View 
+                   </a>
+                 </td>
+                 <td>    
+                  <a href="{{ url_for('admin.event_guestlist_mailinglist', id=event.id) }}">
+                    <i class="fa fa-plus"></i> Send Email
+                  </a>
+                </td>
+              </tr>
+
+              </tbody>
+            </table>
+          </div>
+          <div style="text-align: center">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

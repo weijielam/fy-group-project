@@ -449,9 +449,6 @@ def userlist():
 
 
     return render_template('admin/userlist/userlist.html',
-<<<<<<< HEAD
-                           users=users, title="User List", form=form)    
-=======
                            users=users, title="User List", form=form)    
 
 #####User attended events link in UserList########
@@ -473,4 +470,19 @@ def previous_events(id):
 
 #########User attended events link in UserList###############
 
->>>>>>> e22cd467bd32f36a7bcd4aaf292f4cc0e9b81dba
+
+##### View event seperately ####
+
+@admin.route('/events/view/<int:id>', methods=['GET', 'POST'])
+@login_required
+def view_event(id):
+    """
+    view an event
+    """
+    check_admin()
+
+    add_event = False
+    event = Event.query.get_or_404(id)
+   
+    return render_template('admin/events/viewevent.html', action="View",
+                           event=event, title="View Event")
