@@ -363,7 +363,7 @@ def add_guest(eid, gid):
 @login_required
 def userlist():
     """
-    List all events
+    List all userlist
     """
     
     check_admin()
@@ -384,3 +384,23 @@ def userlist():
 
     return render_template('admin/userlist/userlist.html',
                            users=users, title="User List", form=form)    
+
+#####User attended events link in UserList########
+
+@admin.route('/userlist/PreviousEvents/<int:id>', methods=['GET', 'POST'])
+@login_required
+def previous_events(id):
+    """
+    View the previous events attended by a user
+    """
+
+    check_admin()
+    user_id = User.query.filter_by(id=id).all()
+  
+    
+
+    return render_template('admin/userlist/AttendedEvents.html', action="View",
+                            title="Previous events")
+
+#########User attended events link in UserList###############
+
