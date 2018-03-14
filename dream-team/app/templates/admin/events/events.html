@@ -19,18 +19,10 @@
               <thead>
                 <tr>
                   <th width="15%"> Name </th>
-                  <th width ="15%"> View </th>
-                  <th width="15%"> Time </th>
-                  <th width="15%"> Date </th>
-                  <th width="15%"> Location </th>
-                  <th width="40%"> Description </th>
+                  <th width ="15%"> View Event </th>
                   <th width="15%"> Edit </th>
                   <th width="20%"> Delete </th>
-                  <th width="15%"> Guests List</th>
-                  <th> RSVP List </th>
-                  <th width ="20%"> Invite List </th>
-                  <th width="15%"> Menus </th>
-                  <th width ="20%"> Email Guestlist </th>
+
                 </tr>
               </thead>
               <tbody>
@@ -41,10 +33,6 @@
                     <a href="{{ url_for('admin.view_event', id=event.id) }}">
                       <i class="fa fa-View"></i> View 
                     </a>
-                  <td> {{ event.timeD }} </td>
-                  <td> {{ event.date }} </td>
-                  <td> {{ event.location }} </td>
-                  <td> {{ event.description }} </td>
                   
                   <td>
                     <a href="{{ url_for('admin.edit_event', id=event.id) }}">
@@ -54,31 +42,6 @@
                   <td>
                     <a href="{{ url_for('admin.delete_event', id=event.id) }}">
                       <i class="fa fa-trash"></i> Delete 
-                    </a>
-                  </td>
-                  <td>
-                    <a href="{{ url_for('admin.event_guestlist', id=event.id) }}">
-                      <i class="fa fa-eye"></i> View  
-                    </a>
-                  </td>
-                  <td>
-                    <a href="{{ url_for('admin.event_RSVPlist', id=event.id) }}">
-                      <i class="fa fa-eye"></i> View
-                    </a>
-                  </td>
-                  <td>
-                    <a href="{{ url_for('admin.invite_event', id=event.id) }}">
-                      <i class="fa fa-plus"></i> Invite 
-                    </a>
-                  </td>
-                  <td>
-                    <a href="{{ url_for('admin.event_menus', id=event.id) }}">
-                      <i class="fa fa-file-photo-o"></i> View 
-                     </a>
-                   </td>
-                   <td>    
-                    <a href="{{ url_for('admin.event_guestlist_mailinglist', id=event.id) }}">
-                      <i class="fa fa-plus"></i> Send Email
                     </a>
                   </td>
                 </tr>
