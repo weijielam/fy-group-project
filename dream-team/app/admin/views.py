@@ -50,7 +50,7 @@ def add_event():
 
     form = EventForm()
     if form.validate_on_submit():
-        event = Event(name=form.name.data, timeD = form.timeD.data, location = form.location.data,
+        event = Event(name=form.name.data, timeD = form.timeD.data, date = form.date.data, location = form.location.data,
                                 description=form.description.data, menus = 'menus/'+form.menu.data)
         try:
             # add event to the database
@@ -84,6 +84,7 @@ def edit_event(id):
     if form.validate_on_submit():
         event.name = form.name.data
         event.timeD = form.timeD.data
+        event.date = form.date.data
         event.location = form.location.data
         event.description = form.description.data
         event.menus = 'menus/'+form.menu.data
@@ -96,6 +97,7 @@ def edit_event(id):
     form.description.data = event.description
     form.name.data = event.name
     form.timeD.data = event.timeD
+    form.date.data = event.date
     form.location.data = event.location
     menu = re.sub('menus/', '', event.menus)
     form.menu.data= menu
@@ -107,7 +109,7 @@ def edit_event(id):
 @login_required
 def invite_event(id):
     """
-    Edit an event
+    Invite event
     """
     check_admin()
 

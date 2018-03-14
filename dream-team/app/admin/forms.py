@@ -10,6 +10,7 @@ class EventForm(FlaskForm):
     """
     name = StringField('Name', validators=[DataRequired()])
     timeD = StringField('Time', validators=[DataRequired()])
+    date = StringField('Date', validators=[DataRequired()])
     location = StringField('Location', validators=[DataRequired()])
     description = StringField('Description', validators=[DataRequired()])
     menu = StringField('Menu name eg Menu1.png')
