@@ -26,6 +26,7 @@
                   <th width="15%"> Edit </th>
                   <th width="20%"> Delete </th>
                   <th width="15%"> Guests List</th>
+                  <th> RSVP List </th>
                   <th width ="20%"> Invite List </th>
                   <th width="15%"> Menus </th>
                   <th width ="20%"> Email Guestlist </th>
@@ -53,6 +54,11 @@
                   <td>
                     <a href="{{ url_for('admin.event_guestlist', id=event.id) }}">
                       <i class="fa fa-eye"></i> View  
+                    </a>
+                  </td>
+                  <td>
+                    <a href="{{ url_for('admin.event_RSVPlist', id=event.id) }}">
+                      <i class="fa fa-eye"></i> View
                     </a>
                   </td>
                   <td>

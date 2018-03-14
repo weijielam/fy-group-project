@@ -1,6 +1,6 @@
 {% import "bootstrap/utils.html" as utils %}
 {% extends "base.html" %}
-{% block title %}Guest List{% endblock %}
+{% block title %}RSVP List{% endblock %}
 {% block body %}
 <div class="content-section">
   <div class="outer">
@@ -9,7 +9,7 @@
         <br/>
         {{ utils.flashed_messages() }}
         <br/>
-        <h1 style="text-align:center;">Guest List</h1>
+        <h1 style="text-align:center;">RSVP List</h1>
         {% if guests %}
           <hr class="intro-divider">
           <div class="center">
@@ -20,7 +20,8 @@
                   <th width="20%"> First Name </th>
                   <th width="20%"> Last Name </th>
                   <th width="30%"> E-mail </th>
-                  <th> Set Attending </th>
+                  <th width ="40%"> Special Requirements </th>
+                  <th width="30%"> Edit Special Requirements </th>
                   <th width="20%"> Remove </th>
                 </tr>
               </thead>
@@ -31,13 +32,14 @@
                   <td> {{ guest.first_name }} </td>
                   <td> {{ guest.last_name }} </td>
                   <td> {{ guest.email }} </td>
-                  <td>
-                    <a href=" {{ url_for('admin.set_attending', gid=guest.id, eid=id) }} ">
-                      <button type="button" class="btn btn-primary btn-xs completed_box">+</button>
+                  <td> {{ guest.needs }} </td>
+                  <td> 
+                    <a href="{{ url_for('admin.needs_event', eid=id, uid=guest.id) }}">
+                      <i class="fa fa-pencil"></i> Edit needs
                     </a>
                   </td>
                   <td>
-                    <a href=" {{ url_for('admin.remove_guest', gid=guest.id, eid=id) }} ">
+                    <a href=" {{ url_for('admin.remove_RSVP', gid=guest.id, eid=id) }} ">
                       <button type="button" class="btn btn-primary btn-xs completed_box">X</button>
                     </a>
                   </td>
@@ -49,7 +51,7 @@
           <div style="text-align: center">
         {% else %}
           <div style="text-align: center">
-            <h3> No guests have been added. </h3>
+            <h3> No guests have responded as attending. </h3>
             <hr class="intro-divider">
         {% endif %}
           <a href="{{ url_for('admin.list_events') }}" class="btn btn-default btn-lg">
