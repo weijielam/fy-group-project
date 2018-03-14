@@ -288,7 +288,7 @@ def event_guestlist_mailinglist(id):
 
      
     return render_template('admin/events/mailinglist.html',
-                           form = form, users=guests, title="mailinglist")
+                           form = form, users=guests, title="mailinglist", id=id)
 
 
 @admin.route('/events/guestlist/<int:id>', methods=['GET', 'POST'])
