@@ -235,7 +235,7 @@ def mailinglist():
 @admin.route('/mailinglist/send', methods=['GET', 'POST'])
 @login_required
 def mailinglist_email(subject, body):
-    users = User.query.all()
+    users = User.query.filter_by(is_subscribed=True).all()
     with mail.connect() as conn:
         for user in users:
             msg = Message(recipients=[user.email], sender="fygptest@gmail.com",
