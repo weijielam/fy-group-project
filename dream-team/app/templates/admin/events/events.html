@@ -19,6 +19,7 @@
               <thead>
                 <tr>
                   <th width="15%"> Name </th>
+                  <th width ="15%"> View </th>
                   <th width="15%"> Time </th>
                   <th width="15%"> Date </th>
                   <th width="15%"> Location </th>
@@ -35,6 +36,10 @@
               {% for event in events %}
                 <tr>
                   <td> {{ event.name }} </td>
+                  <td>
+                    <a href="{{ url_for('admin.view_event', id=event.id) }}">
+                      <i class="fa fa-View"></i> View 
+                    </a>
                   <td> {{ event.timeD }} </td>
                   <td> {{ event.date }} </td>
                   <td> {{ event.location }} </td>

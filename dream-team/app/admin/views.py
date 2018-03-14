@@ -404,3 +404,18 @@ def previous_events(id):
 
 #########User attended events link in UserList###############
 
+##### View event seperately ####
+
+@admin.route('/events/view/<int:id>', methods=['GET', 'POST'])
+@login_required
+def view_event(id):
+    """
+    view an event
+    """
+    check_admin()
+
+    add_event = False
+    event = Event.query.get_or_404(id)
+   
+    return render_template('admin/events/viewevent.html', action="View",
+                           event=event, title="View Event")
