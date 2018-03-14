@@ -310,7 +310,27 @@ def event_guestlist(id):
     return render_template('admin/events/guestList.html', action="View",
                            guests=guests, gl=guestList, id=id, title="Guest List")
 
+@admin.route('/events/RSVPlist/<int:id>', methods=['GET', 'POST'])
+@login_required
+def event_RSVPlist(id):
+    """
+    View the RSVP list for an event
+    """
+    check_admin()
+    guests = []
+    add_event = False
+    event = Event.query.get_or_404(id)
 
+
+    guestList = GuestList.query.filter_by(event_id=id).all()
+    for guest in guestList:
+        if guest.is_attending == True:
+            guests.append(User.query.get_or_404(guest.guest_id))
+   
+
+
+    return render_template('admin/events/RSVPList.html', action="View",
+                           guests=guests, gl=guestList, id=id, title="Guest List")
 
 
 @admin.route('/events/removeguest/<int:eid>/<int:gid>', methods=['GET', 'POST'])
@@ -336,6 +356,52 @@ def remove_guest(eid, gid):
 
     return render_template(title="Removed Guest")
 
+@admin.route('/events/setattending/<int:eid>/<int:gid>', methods=['GET', 'POST'])
+@login_required
+def set_attending(eid, gid):
+    """
+    Set a guest as attending for an event.
+    """
+    check_admin()
+
+    guestList = GuestList.query.filter_by(event_id=eid).all()
+    for guest in guestList:
+        print("guest.guest_id: " + str(guest.guest_id))
+        print("gid: " + str(gid))
+        if guest.guest_id == gid:
+            guest.is_attending = True
+            db.session.commit()
+            
+    flash('You have successfully rset a guest as attending this event.')
+
+    # redirect to the events page
+    return redirect(url_for('admin.event_guestlist', id=eid))
+
+    return render_template(title="Set Guest Attending")
+
+@admin.route('/events/removeRSVP/<int:eid>/<int:gid>', methods=['GET', 'POST'])
+@login_required
+def remove_RSVP(eid, gid):
+    """
+    Remove a guest from an event
+    """
+    check_admin()
+
+    guestList = GuestList.query.filter_by(event_id=eid).all()
+    for guest in guestList:
+        print("guest.guest_id: " + str(guest.guest_id))
+        print("gid: " + str(gid))
+        if guest.guest_id == gid:
+            guest.is_attending=False
+            db.session.commit()
+            
+    flash('You have successfully set a user as not attending.')
+
+    # redirect to the events page
+    return redirect(url_for('admin.event_RSVPlist', id=eid))
+
+    return render_template(title="Removed RSVP")
+
 
 @admin.route('/events/addguest/<int:eid>/<int:gid>', methods=['GET', 'POST'])
 @login_required
@@ -345,7 +411,7 @@ def add_guest(eid, gid):
     """
     check_admin()
 
-    guest = GuestList(guest_id=gid, event_id=eid, is_attending=1)
+    guest = GuestList(guest_id=gid, event_id=eid, is_attending=0)
 
     db.session.add(guest)
     db.session.commit()
