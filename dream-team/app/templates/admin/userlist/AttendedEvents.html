@@ -10,10 +10,7 @@
         <br/>
         {{ utils.flashed_messages() }}
         <br/>
-        <h1 style="text-align:center;">User Database</h1>
-        <div class="center" style="text-align:center;">
-        {{ wtf.quick_form(form) }}
-        </div>
+        <h1 style="text-align:center;">Previously Attended Events</h1>
         {% if users %}
           <hr class="intro-divider">
           <div class="center">
@@ -24,8 +21,7 @@
                   <th width="15%"> First Name </th>
                   <th width="20%"> Last Name </th>
                   <th width="30%"> Email </th>
-                  <th width="20"> Previous Events </th>
-                  <th width="20%"> Is Admin? </th>
+                  <th width="20"> Events Attended </th>
                 </tr>
               </thead>
               <tbody>
@@ -35,12 +31,7 @@
                   <td> {{ user.first_name }} </td>
                   <td> {{ user.last_name }} </td>
                   <td> {{ user.email }} </td>
-                  <td>
-                    <a href="{{ url_for('admin.previous_events', id=user.id) }}">
-                      <i class="fa fa-view"></i> View 
-                    </a>
-                  </td>
-                  <td> {{ user.is_admin }} </td>
+                  <td> {{user.events_attended }} </td>
                 </tr>
               {% endfor %}
               </tbody>
@@ -50,7 +41,7 @@
         <div style="text-align: center">
         {% else %}
           <div style="text-align: center">
-            <h3> No users </h3>
+            <h3> No previously attended events</h3>
             <hr class="intro-divider">
         {% endif %}
           </div>

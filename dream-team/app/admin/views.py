@@ -50,7 +50,7 @@ def add_event():
 
     form = EventForm()
     if form.validate_on_submit():
-        event = Event(name=form.name.data, timeD = form.timeD.data, location = form.location.data,
+        event = Event(name=form.name.data, timeD = form.timeD.data, date = form.date.data, location = form.location.data,
                                 description=form.description.data, menus = 'menus/'+form.menu.data)
         try:
             # add event to the database
@@ -84,6 +84,7 @@ def edit_event(id):
     if form.validate_on_submit():
         event.name = form.name.data
         event.timeD = form.timeD.data
+        event.date = form.date.data
         event.location = form.location.data
         event.description = form.description.data
         event.menus = 'menus/'+form.menu.data
@@ -96,6 +97,7 @@ def edit_event(id):
     form.description.data = event.description
     form.name.data = event.name
     form.timeD.data = event.timeD
+    form.date.data = event.date
     form.location.data = event.location
     menu = re.sub('menus/', '', event.menus)
     form.menu.data= menu
@@ -107,7 +109,7 @@ def edit_event(id):
 @login_required
 def invite_event(id):
     """
-    Edit an event
+    Invite event
     """
     check_admin()
 
@@ -427,7 +429,7 @@ def add_guest(eid, gid):
 @login_required
 def userlist():
     """
-    List all events
+    List all userlist
     """
     
     check_admin()
@@ -447,4 +449,28 @@ def userlist():
 
 
     return render_template('admin/userlist/userlist.html',
+<<<<<<< HEAD
                            users=users, title="User List", form=form)    
+=======
+                           users=users, title="User List", form=form)    
+
+#####User attended events link in UserList########
+
+@admin.route('/userlist/PreviousEvents/<int:id>', methods=['GET', 'POST'])
+@login_required
+def previous_events(id):
+    """
+    View the previous events attended by a user
+    """
+
+    check_admin()
+    user_id = User.query.filter_by(id=id).all()
+  
+    
+
+    return render_template('admin/userlist/AttendedEvents.html', action="View",
+                            title="Previous events")
+
+#########User attended events link in UserList###############
+
+>>>>>>> e22cd467bd32f36a7bcd4aaf292f4cc0e9b81dba

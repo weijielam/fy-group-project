@@ -20,6 +20,7 @@ class User(UserMixin, db.Model):
     first_name = db.Column(db.String(60), index=True)
     last_name = db.Column(db.String(60), index=True)
     password_hash = db.Column(db.String(128))
+    events_attended = db.Column(db.String(200))
     is_admin = db.Column(db.Boolean, default=False)
     needs = db.Column(db.String(300))
 
@@ -81,6 +82,7 @@ class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(60), unique=True)
     timeD = db.Column(db.String(60))
+    date = db.Column(db.String(60))
     location = db.Column(db.String(60))
     description = db.Column(db.String(200))
     menus = db.Column(db.String(200))

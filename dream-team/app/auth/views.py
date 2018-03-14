@@ -1,7 +1,7 @@
 # app/auth/views.py
 
 from flask import flash, redirect, render_template, url_for, request
-from flask_login import login_required, login_user, logout_user
+from flask_login import login_required, login_user, logout_user, current_user
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from . import auth
 from forms import LoginForm, RegistrationForm, ResetPassword, ResetPasswordSubmit
@@ -115,7 +115,24 @@ def verify_token(token):
         return User.query.get(id)
     return None   
 
-######### END RESET PASSWORD CODE ########    
+######### END RESET PASSWORD CODE ########   
+
+######### START SETTINGS TAB CODE ########
+@auth.route('/settings', methods=['GET', 'POST',])
+@login_required
+def settings():
+    id = current_user.id
+    user = User.query.get(id)
+    #Settings tab for both users and admins
+    form = ResetPasswordSubmit()
+    if form.validate_on_submit():
+            user.password=form.password.data
+            db.session.commit()
+            flash("Password updated successfully")
+
+
+
+    return render_template('auth/settings.html', form=form, user=user, title='Settings') 
 
 @auth.route('/logout')
 @login_required
