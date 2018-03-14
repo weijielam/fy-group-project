@@ -4,7 +4,7 @@ from flask import flash, redirect, render_template, url_for, request
 from flask_login import login_required, login_user, logout_user, current_user
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from . import auth
-from forms import LoginForm, RegistrationForm, ResetPassword, ResetPasswordSubmit
+from forms import LoginForm, RegistrationForm, ResetPassword, ResetPasswordSubmit, Unsubscribe
 from .. import db
 from ..models import User
 from flask_mail import Mail, Message 
@@ -23,7 +23,7 @@ def register():
                             username=form.username.data,
                             first_name=form.first_name.data,
                             last_name=form.last_name.data,
-                            password=form.password.data)
+                            password=form.password.data, is_subscribed=form.mailing_list.data)
 
         # add user to the database
         db.session.add(user)
@@ -77,16 +77,17 @@ def forgot_password():
         if user:
             token = user.get_token()
             print ("HERE'S THE OUL TOKEN LOVE",token)
-        with mail.connect() as conn:
-            message = 'Hello I see you would like to change your password! Please click this link. localhost:5000/reset?token='+token
-            subject = "Password Reset"
-            msg = Message(recipients=[user.email],
-                            sender="fygptest@gmail.com",
-                          body=message,
-                          subject=subject)
-            conn.send(msg)
-            flash("Email has been sent!")
-
+            with mail.connect() as conn:
+                message = 'Hello I see you would like to change your password! Please click this link. localhost:5000/reset?token='+token
+                subject = "Password Reset"
+                msg = Message(recipients=[user.email],
+                                sender="fygptest@gmail.com",
+                              body=message,
+                              subject=subject)
+                conn.send(msg)
+                flash("Email has been sent!")
+        else:
+            flash ("No such user in the database")
     token = request.args.get('token')       
     verified_result = User.verify_token(token)
     if token and verified_result:
@@ -130,9 +131,16 @@ def settings():
             db.session.commit()
             flash("Password updated successfully")
 
+    form2 = Unsubscribe()
+    if form2.validate_on_submit():
+            user.is_subscribed =  not user.is_subscribed
+            db.session.commit()
+            flash("You are successfully unsubscribed")
 
 
-    return render_template('auth/settings.html', form=form, user=user, title='Settings') 
+    return render_template('auth/settings.html', form=form, form2=form2, user=user, title='Settings') 
+
+######### END SETTINGS TAB CODE ############    
 
 @auth.route('/logout')
 @login_required

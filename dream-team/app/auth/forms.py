@@ -1,7 +1,7 @@
 # app/auth/forms.py
 
 from flask_wtf import FlaskForm
-from wtforms import PasswordField, StringField, SubmitField, ValidationError
+from wtforms import PasswordField, StringField, SubmitField, ValidationError, BooleanField
 from wtforms.validators import DataRequired, Email, EqualTo
 
 from ..models import User
@@ -19,6 +19,7 @@ class RegistrationForm(FlaskForm):
                                         EqualTo('confirm_password')
                                         ])
     confirm_password = PasswordField('Confirm Password')
+    mailing_list = BooleanField('Tick to subscribe to our mailing list.')
     submit = SubmitField('Register')
 
 
@@ -59,3 +60,6 @@ class ResetPasswordSubmit(FlaskForm):
     password = PasswordField('New Password', validators=[DataRequired(), EqualTo('confirm')] )
     confirm = PasswordField('Confirm Password')
     submit = SubmitField('Change Password')
+
+class Unsubscribe(FlaskForm):
+    unsubscribe = SubmitField('Unsubscribe')
