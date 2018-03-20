@@ -1,0 +1,48 @@
+{% import "bootstrap/utils.html" as utils %}
+{% extends "base.html" %}
+{% block title %}Guest List{% endblock %}
+{% block body %}
+<div class="content-section">
+  <div class="outer">
+    <div class="middle">
+      <div class="inner">
+        <br/>
+        {{ utils.flashed_messages() }}
+        <br/>
+        <h1 style="text-align:center;">Guest List</h1>
+        {% if guests %}
+          <hr class="intro-divider">
+          <div class="center">
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th width="15%"> First Name </th>
+                  <th width="15%"> Last Name </th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for guest in guests %}
+                <tr>
+                  <td> {{ guest.first_name }} </td>
+                  <td> {{ guest.last_name }} </td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div style="text-align: center">
+        {% else %}
+          <div style="text-align: center">
+            <h3> No guests have been added. </h3>
+            <hr class="intro-divider">
+        {% endif %}
+          <a href="{{ url_for('user.view_event', id=id) }}" class="btn btn-default btn-lg">
+            <i class="fa fa-mail-reply"></i>
+            Return
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

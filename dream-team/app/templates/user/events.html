@@ -1,0 +1,57 @@
+<!-- app/templates/admin/events/events.html -->
+
+{% import "bootstrap/utils.html" as utils %}
+{% extends "base.html" %}
+{% block title %}Events{% endblock %}
+{% block body %}
+<div class="content-section">
+  <div class="outer">
+    <div class="middle">
+      <div class="inner">
+        <br/>
+        {{ utils.flashed_messages() }}
+        <br/>
+        <h1 style="text-align:center;">Events</h1>
+        {% if events %}
+          <hr class="intro-divider">
+          <div class="center">
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th width="20%"> Name </th>
+                  <th width ="20%"> View Event </th>
+                  <th width="20%"> Live Count </th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for event in events %}
+                <tr>
+                  <td> {{ event.name }} </td>
+                  <td>
+                    <a href="{{ url_for('user.view_event', id=event.id) }}">
+                      <i class="fa fa-View"></i> View 
+                    </a>
+                  </td>
+                  <td>
+                    <a href="{{ url_for('user.event_livecount', id=event.id) }}">
+                      <i class="fa fa-laptop"></i> Live Count
+                    </a>
+                  </td>
+                </tr>
+
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div style="text-align: center">
+        {% else %}
+          <div style="text-align: center">
+            <h3> No event have been added. </h3>
+            <hr class="intro-divider">
+        {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
