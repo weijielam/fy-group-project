@@ -305,7 +305,8 @@ def event_guestlist(id):
 
     guestList = GuestList.query.filter_by(event_id=id).all()
     for guest in guestList:
-        guests.append(User.query.get_or_404(guest.guest_id))
+	if not guest.is_attending:	
+	        guests.append(User.query.get_or_404(guest.guest_id))
    
 
 
