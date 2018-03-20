@@ -245,7 +245,18 @@ def mailinglist_email(subject, body):
 
         return "Sent"
 
-# Send mass email to users with message
+# Send email to a user with subject and message
+@login_required
+def send_email_to_user(user, subject, message):
+    with mail.connect() as conn:
+        message = message
+        subject = subject
+        msg = Message(recipients=[user.email], sender="fygptest@gmail.com",body = message, subject = subject)
+        conn.send(msg)
+        return "Sent"
+
+
+# Send mass email to users with subject and message
 @login_required
 def send_email_to_users(users, subject, message):
     with mail.connect() as conn:
@@ -417,7 +428,7 @@ def add_guest(eid, gid):
 
     db.session.add(guest)
     db.session.commit()
-            
+    automate_invitation(eid, gid)
     flash('You have successfully added a user to the event.')
 
     # redirect to the events page
@@ -491,3 +502,24 @@ def view_event(id):
    
     return render_template('admin/events/viewevent.html', action="View",
                            id =id, event=event, title="View Event")
+
+#################
+
+def automate_invitation(eid, uid):
+    # event, user to invite
+    user = User.query.get_or_404(uid)
+    event = Event.query.get_or_404(eid)
+
+    subject = "You are invited to " + str(event.name)
+    message = "Hi " + str(user.username) + "! You have been invited to attend " + str(event.name) + " , click the link to RSVP " + "localhost:5000/" 
+    send_email_to_user(user, subject, message)
+
+    # accept_invitation()
+    
+def automate_all_invitations(event):
+    # localhost:5000/accept_invitation()
+    event_id = event.event_id
+    guestList = GuestList.query.filter_by(event_id=eid).all() 
+    # if already attended then don't fucking send the email
+    for guest in guestList:
+        automate_invitation(guest, event)
