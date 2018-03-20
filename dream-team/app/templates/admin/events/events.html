@@ -18,11 +18,11 @@
             <table class="table table-striped table-bordered">
               <thead>
                 <tr>
-                  <th width= "25%"> Name </th>
-                  <th width= "25%"> View Event </th>
-                  <th width= "25%"> Edit Event Details</th>
-                  <th width= "25%"> Delete </th>
-
+                  <th width="20%"> Name </th>
+                  <th width ="20%"> View Event </th>
+                  <th width="20%"> Edit </th>
+                  <th width="20%"> Delete </th>
+                  <th width="20%"> Live Count </th>
                 </tr>
               </thead>
               <tbody>
@@ -42,6 +42,11 @@
                   <td>
                     <a href="{{ url_for('admin.delete_event', id=event.id) }}">
                       <i class="fa fa-trash"></i> Delete 
+                    </a>
+                  </td>
+                  <td>
+                    <a href="{{ url_for('admin.event_livecount', id=event.id) }}">
+                      <i class="fa fa-laptop"></i> Live Count
                     </a>
                   </td>
                 </tr>

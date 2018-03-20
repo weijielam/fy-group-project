@@ -492,3 +492,19 @@ def view_event(id):
    
     return render_template('admin/events/viewevent.html', action="View",
                            id =id, event=event, title="View Event")
+
+##### View event Live Counter ####
+
+@admin.route('/events/livecount/<int:id>', methods=['GET', 'POST'])
+@login_required
+def event_livecount(id):
+    """
+    view event Live Count
+    """
+    check_admin()
+
+    add_event = False
+    event = Event.query.get_or_404(id)
+   
+    return render_template('admin/events/livecount.html', action="View",
+                           id =id, event=event, title="Live Count")

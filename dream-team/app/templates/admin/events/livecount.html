@@ -1,0 +1,33 @@
+<!-- app/templates/admin/events/livecount.html -->
+
+{% import "bootstrap/utils.html" as utils %}
+{% extends "base.html" %}
+{% block title %}Event{% endblock %}
+{% block body %}
+<div class="content-section">
+  <div class="outer">
+    <div class="middle">
+      <div class="inner">
+        <br/>
+        {{ utils.flashed_messages() }}
+        <br/>
+        <h1 style="text-align:center;">Live Count for {{ event.name }}</h1>
+        <hr class="intro-divider">
+          <div class="center">
+            <table class="table table-striped table-bordered">
+              <thead>
+                </thead>
+            </table>
+            <div style="text-align: center">
+              <a href="{{ url_for('admin.list_events') }}" class="btn btn-default btn-lg">
+                <i class="fa fa-mail-reply"></i>
+                Return
+              </a>
+            </div>
+          </div>
+        <tr class="intro-divider"></tr>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
