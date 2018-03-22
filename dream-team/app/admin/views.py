@@ -505,7 +505,6 @@ def view_event(id):
     return render_template('admin/events/viewevent.html', action="View",
                            id =id, event=event, title="View Event")
 
-<<<<<<< HEAD
 #################
 
 def automate_invitation(eid, uid):
@@ -514,7 +513,7 @@ def automate_invitation(eid, uid):
     event = Event.query.get_or_404(eid)
 
     subject = "You are invited to " + str(event.name)
-    message = "Hi " + str(user.username) + "! You have been invited to attend " + str(event.name) + " , click the link to RSVP " + "localhost:5000/" 
+    message = "Hi " + str(user.username) + "! You have been invited to attend " + str(event.name) + " , click the link to RSVP " + "<a href=https://www.w3schools.com>Visit W3Schools</a>" 
     send_email_to_user(user, subject, message)
 
     # accept_invitation()
