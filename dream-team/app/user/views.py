@@ -8,6 +8,14 @@ from .. import db
 from app import mail
 from ..models import Event, GuestList, User
 from PIL import Image 
+import stripe
+import os
+stripe_keys = {
+  'secret_key': os.environ['SECRET_KEY'],
+  'publishable_key': os.environ['PUBLISHABLE_KEY']
+}
+
+stripe.api_key = stripe_keys['secret_key']
 
 ##### view details of specific event#####
 @user.route('/user/events/view/<int:id>', methods=['GET', 'POST'])
@@ -108,6 +116,29 @@ def event_livecount(id):
    
     return render_template('user/livecount.html', action="View",
                            id =id, event=event, title="Live Count")
+
+@user.route('/payment')
+def index():
+    return render_template('payment/index.html', key=stripe_keys['publishable_key'])
+
+@user.route('/charge', methods=['POST'])
+def charge():
+    # Amount in cents
+    amount = 500
+
+    customer = stripe.Customer.create(
+        email='customer@example.com',
+        source=request.form['stripeToken']
+    )
+
+    charge = stripe.Charge.create(
+        customer=customer.id,
+        amount=amount,
+        currency='usd',
+        description='Flask Charge'
+    )
+
+    return render_template('payment/charge.html', amount=amount)
 
 
 
