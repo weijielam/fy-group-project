@@ -13,7 +13,6 @@ def homepage():
     return render_template('home/index.html', title="Welcome")
 
 @home.route('/dashboard')
-@login_required
 def dashboard():
     """
     Render the dashboard template on the /dashboard route
@@ -29,3 +28,11 @@ def admin_dashboard():
         abort(403)
 
     return render_template('home/admin_dashboard.html', title="Dashboard")
+
+@home.route('/user/dashboard')
+@login_required
+def user_dashboard():
+    """
+    Render the dashboard template on the /dashboard route
+    """
+    return render_template('home/user_dashboard.html', title="Dashboard")

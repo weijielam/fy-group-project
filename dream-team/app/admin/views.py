@@ -239,11 +239,12 @@ def mailinglist_email(subject, body):
     with mail.connect() as conn:
         for user in users:
             msg = Message(recipients=[user.email], sender="fygptest@gmail.com",
-                          body=body, subject=subject)
+                          html=body, subject=subject)
             
             conn.send(msg)
 
         return "Sent"
+
 
 # Send email to a user with subject and message
 @login_required
@@ -251,7 +252,7 @@ def send_email_to_user(user, subject, message):
     with mail.connect() as conn:
         message = message
         subject = subject
-        msg = Message(recipients=[user.email], sender="fygptest@gmail.com",body = message, subject = subject)
+        msg = Message(recipients=[user.email], sender="fygptest@gmail.com", html = message, subject = subject)
         conn.send(msg)
         return "Sent"
 
@@ -264,7 +265,7 @@ def send_email_to_users(users, subject, message):
             message = message
             subject = subject
             msg = Message(recipients=[user.email], sender="fygptest@gmail.com",
-                            body = message, subject = subject)
+                            html = message, subject = subject)
             conn.send(msg)
         return "Sent"
 
@@ -316,7 +317,8 @@ def event_guestlist(id):
 
     guestList = GuestList.query.filter_by(event_id=id).all()
     for guest in guestList:
-        guests.append(User.query.get_or_404(guest.guest_id))
+	if not guest.is_attending:	
+	        guests.append(User.query.get_or_404(guest.guest_id))
    
 
 
@@ -503,6 +505,7 @@ def view_event(id):
     return render_template('admin/events/viewevent.html', action="View",
                            id =id, event=event, title="View Event")
 
+<<<<<<< HEAD
 #################
 
 def automate_invitation(eid, uid):
@@ -523,3 +526,37 @@ def automate_all_invitations(event):
     # if already attended then don't fucking send the email
     for guest in guestList:
         automate_invitation(guest, event)
+
+##### View event Live Counter ####
+
+@admin.route('/events/livecount/<int:id>', methods=['GET', 'POST'])
+@login_required
+def event_livecount(id):
+    """
+    view event Live Count
+    """
+    check_admin()
+
+    add_event = False
+    event = Event.query.get_or_404(id)
+   
+    return render_template('admin/events/livecount.html', action="View",
+                           id =id, event=event, title="Live Count")
+
+##### View event Payments ####
+
+@admin.route('/events/viewpayments/<int:id>', methods=['GET', 'POST'])
+@login_required
+def event_payments(id):
+    """
+    view event payments
+    """
+    check_admin()
+
+    add_event = False
+    event = Event.query.get_or_404(id)
+   
+    return render_template('admin/events/viewpayments.html', action="View",
+                           id =id, event=event, title="Event Payments")
+
+

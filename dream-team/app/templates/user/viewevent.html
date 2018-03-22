@@ -41,45 +41,33 @@
             <table class="table table-striped table-bordered">
               <thead>
                 <tr>
-                  <th width= "20%"> RSVP List </th>
-                  <th width= "20%"> Guests List</th>
-                  <th width= "20%"> Invite List </th>
-                  <th width= "20%"> Menus </th>
-                  <th width= "20%"> Email Guestlist </th>
+                  <th width= "33%"> RSVP List </th>
+                  <th width= "33%"> Guests List</th>
+                  <th width= "33%"> Menus </th>
                 </tr>
               </thead>
               <tbody>
                 <tr>  
                   <td>
-                      <a href="{{ url_for('admin.event_RSVPlist', id=event.id) }}">
+                      <a href="{{ url_for('user.event_RSVPlist', id=event.id) }}">
                         <i class="fa fa-eye"></i> View
                       </a>
                     </td>
                   <td>
-                    <a href="{{ url_for('admin.event_guestlist', id=event.id) }}">
+                    <a href="{{ url_for('user.event_guestlist', id=event.id) }}">
                       <i class="fa fa-eye"></i> View  
                     </a>
                   </td>
                   <td>
-                    <a href="{{ url_for('admin.invite_event', id=event.id) }}">
-                      <i class="fa fa-plus"></i> Invite 
-                    </a>
-                  </td>
-                  <td>
-                    <a href="{{ url_for('admin.event_menus', id=event.id) }}">
+                    <a href="{{ url_for('user.event_menus', id=event.id) }}">
                       <i class="fa fa-file-photo-o"></i> View 
-                     </a>
-                   </td>
-                   <td>    
-                    <a href="{{ url_for('admin.event_guestlist_mailinglist', id=event.id) }}">
-                      <i class="fa fa-plus"></i> Send Email
                     </a>
                   </td>
                 </tr>
               </tbody>
             </table>
             <div style="text-align: center">
-              <a href="{{ url_for('admin.list_events') }}" class="btn btn-default btn-lg">
+              <a href="{{ url_for('user.list_events') }}" class="btn btn-default btn-lg">
                 <i class="fa fa-mail-reply"></i>
                 Return
               </a>

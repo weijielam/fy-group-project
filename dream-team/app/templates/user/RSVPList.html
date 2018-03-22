@@ -16,33 +16,15 @@
             <table class="table table-striped table-bordered">
               <thead>
                 <tr>
-                  <th width="20%"> Username </th>
                   <th width="15%"> First Name </th>
                   <th width="15%"> Last Name </th>
-                  <th width="15%"> E-mail </th>
-                  <th width="15%"> Special Requirements </th>
-                  <th width="15%"> Edit Special Requirements </th>
-                  <th width="5%"> Remove </th>
                 </tr>
               </thead>
               <tbody>
               {% for guest in guests %}
                 <tr>
-                  <td> {{ guest.username }} </td>
                   <td> {{ guest.first_name }} </td>
                   <td> {{ guest.last_name }} </td>
-                  <td> {{ guest.email }} </td>
-                  <td> {{ guest.needs }} </td>
-                  <td> 
-                    <a href="{{ url_for('admin.needs_event', eid=id, uid=guest.id) }}">
-                      <i class="fa fa-pencil"></i> Edit needs
-                    </a>
-                  </td>
-                  <td>
-                    <a href=" {{ url_for('admin.remove_RSVP', gid=guest.id, eid=id) }} ">
-                      <button type="button" class="btn btn-primary btn-xs completed_box">X</button>
-                    </a>
-                  </td>
                 </tr>
               {% endfor %}
               </tbody>
@@ -54,7 +36,7 @@
             <h3> No guests have responded as attending. </h3>
             <hr class="intro-divider">
         {% endif %}
-          <a href="{{ url_for('admin.view_event', id=id) }}" class="btn btn-default btn-lg">
+          <a href="{{ url_for('user.view_event', id=id) }}" class="btn btn-default btn-lg">
             <i class="fa fa-mail-reply"></i>
             Return
           </a>

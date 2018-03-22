@@ -9,6 +9,6 @@ class EmailForm(FlaskForm):
     Form for admin to add or edit a Event
     """
     subject = StringField('Subject')#, validators=[DataRequired()])
-    body = StringField('Message')#, validators=[DataRequired()])
+    html = StringField('Message')#, validators=[DataRequired()])
     submit = SubmitField('Send')
 

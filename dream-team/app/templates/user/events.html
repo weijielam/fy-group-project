@@ -19,11 +19,8 @@
               <thead>
                 <tr>
                   <th width="20%"> Name </th>
-                  <th width ="20%"> View Event</th>
-                  <th width="20%"> Edit Details</th>
-                  <th width="20%"> Delete Event</th>
-                  <th width="20%"> Live Count</th>
-                  <th width="20%"> View Payment</th>
+                  <th width ="20%"> View Event </th>
+                  <th width="20%"> Live Count </th>
                 </tr>
               </thead>
               <tbody>
@@ -31,28 +28,13 @@
                 <tr>
                   <td> {{ event.name }} </td>
                   <td>
-                    <a href="{{ url_for('admin.view_event', id=event.id) }}">
+                    <a href="{{ url_for('user.view_event', id=event.id) }}">
                       <i class="fa fa-View"></i> View 
                     </a>
-                  
-                  <td>
-                    <a href="{{ url_for('admin.edit_event', id=event.id) }}">
-                      <i class="fa fa-pencil"></i> Edit 
-                    </a>
                   </td>
                   <td>
-                    <a href="{{ url_for('admin.delete_event', id=event.id) }}">
-                      <i class="fa fa-trash"></i> Delete 
-                    </a>
-                  </td>
-                  <td>
-                    <a href="{{ url_for('admin.event_livecount', id=event.id) }}">
-                      <i class="fa fa-laptop"></i> LiveCount
-                    </a>
-                  </td>
-                  <td>
-                    <a href="{{ url_for('admin.event_payments', id=event.id) }}">
-                      <i class="fa fa-credit-card"></i> Payment
+                    <a href="{{ url_for('user.event_livecount', id=event.id) }}">
+                      <i class="fa fa-laptop"></i> Live Count
                     </a>
                   </td>
                 </tr>
@@ -67,10 +49,6 @@
             <h3> No event have been added. </h3>
             <hr class="intro-divider">
         {% endif %}
-          <a href="{{ url_for('admin.add_event') }}" class="btn btn-default btn-lg">
-            <i class="fa fa-plus"></i>
-            Add Event
-          </a>
         </div>
       </div>
     </div>
