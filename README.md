@@ -136,7 +136,10 @@ exit()
 
 11. Run server
 ```
-flask run
+cd dream-team
+export FLASK_APP=run.py
+export FLASK_CONFIG=development
+PUBLISHABLE_KEY=pk_test_6pRNASCoBOKtIshFeQd4XMUh SECRET_KEY=sk_test_BQokikJOvBiI2HlWgH4olfQ2 flask run
 ```
 
 12. Open site
