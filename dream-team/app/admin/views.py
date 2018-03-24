@@ -6,7 +6,7 @@ from flask_mail import Mail, Message
 from . import admin
 from forms import EventForm, GuestListForm
 from email import EmailForm
-from forms import EventForm, AdminAccessForm
+from forms import EventForm, AdminAccessForm, SelectedGuestsForm
 
 from .. import db
 from app import mail
@@ -112,7 +112,6 @@ def invite_event(id):
     Invite event
     """
     check_admin()
-
     not_invited = []
     already_invd = False
 
@@ -127,6 +126,20 @@ def invite_event(id):
                 already_invd = True
         if not already_invd:
             not_invited.append(user)
+
+	if request.method == 'POST':
+		    selected_guests = request.form.getlist("invited")
+		    print("YASSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSs")
+		    for guest in selected_guests:
+			    guest_to_be_added = GuestList(guest_id=guest, event_id=id, is_attending=0)
+
+			    db.session.add(guest_to_be_added)
+			    db.session.commit()
+			    automate_invitation(id, guest)
+		
+		    flash('You have successfully added users to the event.')  
+
+		    return redirect(url_for('admin.list_events'))    
 
     return render_template('admin/events/invitelist.html', action="Invite", 
                                 users=not_invited, eid=id, title="Invite List")
@@ -417,25 +430,6 @@ def remove_RSVP(eid, gid):
 
     return render_template(title="Removed RSVP")
 
-
-@admin.route('/events/addguest/<int:eid>/<int:gid>', methods=['GET', 'POST'])
-@login_required
-def add_guest(eid, gid):
-    """
-    Add a guest to an event
-    """
-    check_admin()
-
-    guest = GuestList(guest_id=gid, event_id=eid, is_attending=0)
-
-    db.session.add(guest)
-    db.session.commit()
-    automate_invitation(eid, gid)
-    flash('You have successfully added a user to the event.')
-
-    # redirect to the events page
-    return redirect(url_for('admin.invite_event', id=eid))
-    return render_template(title="Added Guest")
 
 
 @admin.route('/userlist', methods=['GET', 'POST'])
