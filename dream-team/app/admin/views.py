@@ -533,7 +533,7 @@ def event_livecount(id):
     add_event = False
     event = Event.query.get_or_404(id)
    
-    return render_template('admin/events/livecount.html', action="View",
+    return render_template('user/livecount.html', action="View",
                            id =id, event=event, title="Live Count")
 
 ##### View event Payments ####
