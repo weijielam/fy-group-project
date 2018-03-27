@@ -100,6 +100,18 @@
 	4. Click 'edit needs' under the edit special requirements column
 	5. Enter in details and click submit
 
+14. I want to be able to send automated invitations, with link to register for the event
+
+	REQUIREMENTS:
+	- Logged in as an admin user
+	- At least one Event to be created
+	- At least one User account to be created with a valid email address
+
+	1. Create an event
+	2. 
+	3. 
+
+
 20. I would like to email (legitimately) subscribed users
 	
 	- **Must have users registered**
@@ -155,7 +167,5 @@
 	1. Go to the events page
 	2. Click the view button under menus with the associated event. 
 	3. If there is a menu associated with the event it will open with the default image opener. 
-
-
 
 
