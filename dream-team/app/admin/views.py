@@ -129,7 +129,6 @@ def invite_event(id):
 
 	if request.method == 'POST':
 		    selected_guests = request.form.getlist("invited")
-		    print("YASSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSs")
 		    for guest in selected_guests:
 			    guest_to_be_added = GuestList(guest_id=guest, event_id=id, is_attending=0)
 
@@ -139,7 +138,7 @@ def invite_event(id):
 		
 		    flash('You have successfully added users to the event.')  
 
-		    return redirect(url_for('admin.list_events'))    
+		    return redirect(url_for('admin.view_event', id=id))    
 
     return render_template('admin/events/invitelist.html', action="Invite", 
                                 users=not_invited, eid=id, title="Invite List")

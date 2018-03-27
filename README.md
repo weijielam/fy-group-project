@@ -4,7 +4,8 @@ Group 7: Final Year Group Project
 ## Install and Run Instructions using scripts
 1. Install Git and clone the repo
 ```
-sudo apt install git  -y
+sudo apt install git -y
+enter your computer password if prompted
 git clone https://github.com/weijielam/fygroupproject.git
 ```
 
@@ -13,12 +14,11 @@ git clone https://github.com/weijielam/fygroupproject.git
 ```
 cd fygroupproject
 sudo bash install.sh
-Create an SQL password for root user
+Create an SQL password for root user when prompted
 Enter SQL root user password when prompted
 ```
 3. Create an admin account 
 ```
-cd dream-team
 sudo bash flaskshell.sh
 ```
 
@@ -33,7 +33,7 @@ exit()
 
 4. Running Flask App: run.sh
 ```
-cd ..
+
 sudo bash run.sh
 ```
 5. Open up browser at localhost:5000

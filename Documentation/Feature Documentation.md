@@ -26,7 +26,7 @@
 	7. Proceed to login with your new password! 
 
 	1a. If you want to change password while logged in
-	2a. Nagivate to 'Hi, [user name]' on top right corner
+	2a. Nagivate to 'Hi, [user name]' tab on top right corner
 	3a. In the change password field enter in your new password and confirm it
 
 2. I want to be able to give admin access to other people
@@ -72,10 +72,10 @@
 
 	1. Login in as admin user: admin@admin.com pass: admin2018
 	2. Click on the event tab located at the top of the dashboard
-	3. Click on an 'view' for the event you want to invite people to under the View Event column of the events
+	3. Click on an 'view' under the 'View Event' column for the event you wish to invite people to.
 	4. Click on the 'Invite' button under the Invite List column of the event
-	5. Select the checkboxes of the guests of the desired guests to be invited to the event
-	6. Once all guests to be invited have been selected click the "Invite Selected" button to send invites
+	5. Select the checkboxes of the guests you wish to invite or select all guests using the 'Select all' box.
+	6. Click the 'invite selected' button at the bottom
 	7. Each invited guest should get an automated message sent to their email address with a link to the event page
 	8. Optional (send email to all users in Guestlist): 
 		- Once redirected to events page, click into 'view' for event you have invited people to. 
@@ -90,28 +90,26 @@
 	1. Login in as admin user: admin@admin.com
 			     pass: admin2018
 	2. Click on the event tab located at the top of the dashboard
-	3. Click on events tab at top of page
-	4. Click on 'view' under the View Event column on desired event
-	5. Click on 'view' under the Guest List Column
+	3. Click on 'view' under the View Event column on desired event
+	4. Click on 'view' under the Guest List Column
 
 11. I want to see guest contact details
 	
 	1. Login in as admin user: admin@admin.com
 			     pass: admin2018
 	2. Click on the event tab located at the top of the dashboard
-	3. Click on events tab at top of page
-	4. Click on 'view' under the View Event column on desired event
-	5. Click on 'view' under the RSVP List column 
+	3. Click on 'view' under the View Event column on desired event
+	4. Click on 'view' under the RSVP List column 
 
 12. I need to be able to manage the responses so I can know who is attending
 	
 	1. Login in as admin user: admin@admin.com
 			     pass: admin2018
-	2. Click on events tab at top of page
+	2. Click on te events tab at top of page
 	3. Click on 'view' under the View Event column on desired event
 	4. Click on 'view' under the Guest List column
 	5. Click the + button on each user you wish to add
-	6. Click return to the event page
+	6. Click return to go back to the event page
 	7. Click on 'view' under the RSVP list column
 	8. Attendees can be removed from this page by clicking the x button on a given user
 
@@ -158,27 +156,26 @@
 	
 	1. Login in as admin user: admin@admin.com pass: admin2018
 	2. Click on the event tab located at the top of the dashboard
-	3. Click on the "Send Email" button of the event you want to send a group email to Guests in that Event Guestlist
+	3. Click on 'view' under the View Event column on desired event
+	3. Click on the "Send Email" button under the Email Guestlist column
 	4. Enter in the subject and message you want to send your the Guests in Event Guestlist
-	5. Click the Send button to send email.
+	5. Click the Send button to send email to all invited guests.
 
 22. I want to be able to see the rsvp list
 	
 	1. Login in as admin user: admin@admin.com
 			     pass: admin2018
 	2. Click on the event tab located at the top of the dashboard
-	3. Click on events tab at top of page
-	4. Click on 'view' under the View Event column on desired event
-	5. Click on 'view' under the RSVP Column
+	3. Click on 'view' under the View Event column on desired event
+	4. Click on 'view' under the RSVP Column
 
 24. I want to be able to see a report of who is attending an event
 	
 	1. Login in as admin user: admin@admin.com
 			     pass: admin2018
 	2. Click on the event tab located at the top of the dashboard
-	3. Click on events tab at top of page
-	4. Click on 'view' under the View Event column on desired event
-	5. Click on 'view' under the RSVP Column
+	3. Click on 'view' under the View Event column on desired event
+	4. Click on 'view' under the RSVP Column
 
 28. I want to be able to add/remove attendees from the guest list
 	
@@ -192,13 +189,14 @@
 
 29. I want to create menus
 	
-	1. Place the menu image in dream-team/menus
-	2. When creating the event, type in the name of the menu in the menu section eg menu.jpg
+	1. Place the menu image in fygroupproject/menus folder
+	2. When creating/editing an event, type in the name of the menu in the menu section eg. menu.jpg
 	*For an example there is a menu in the menus folder called menu.jpg*
 
 	Viewing a menu associated with an event
 
-	1. Go to the events page
+	1. Click on events tab at top of page
+
 	2. Click on 'view' under the View Event column on desired event
 	3. Click the 'view' button under Menus column 
 	4. If there is a menu associated with the event it will open with the default image opener. 
@@ -206,9 +204,9 @@
 49. I want to be able to see/accept payments
 	1. Log in as a user 
 	2. Click on the 'Donate' tab at the top
-	3. Enter the amount to donate in euros and cents plus 
+	3. Enter the amount to donate in euros and cents and 
 	   the type of donation and purpose (ie is it for a specific event or just a general donation)
-	4. Click submit and wait to be redirect to a credit card details page
+	4. Click submit and wait to be redirect to a payment page
 	6. Enter in your email plus your credit card detais
 	7. Click pay
 	8. Admins can see all payments under the 'total raised' tab, See feature 54.
