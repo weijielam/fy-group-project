@@ -23,7 +23,6 @@
                   <th width="20%"> Edit Details</th>
                   <th width="20%"> Delete Event</th>
                   <th width="20%"> Live Count</th>
-                  <th width="20%"> View Payment</th>
                 </tr>
               </thead>
               <tbody>
@@ -48,11 +47,6 @@
                   <td>
                     <a href="{{ url_for('admin.event_livecount', id=event.id) }}">
                       <i class="fa fa-laptop"></i> LiveCount
-                    </a>
-                  </td>
-                  <td>
-                    <a href="{{ url_for('admin.event_payments', id=event.id) }}">
-                      <i class="fa fa-credit-card"></i> Payment
                     </a>
                   </td>
                 </tr>
