@@ -1,7 +1,6 @@
 source Envs/my-venv/bin/activate        # Activate virtualenv
 sudo pip install -r requirements.txt    # Install pip libraries
 
-
 export FLASK_APP=dream-team/run.py      # set up environment variables for the Flask Appplication
 export FLASK_CONFIG=development
 

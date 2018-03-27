@@ -507,7 +507,7 @@ def automate_invitation(eid, uid):
     event = Event.query.get_or_404(eid)
 
     subject = "You are invited to " + str(event.name)
-    message = "Hi " + str(user.username) + "! You have been invited to attend " + str(event.name) + " , click the link to RSVP " + "<a href=https://www.w3schools.com>Visit W3Schools</a>" 
+    message = "Hi " + str(user.username) + "! You have been invited to attend " + str(event.name) + " , click the link to RSVP " + "<a href=\"http://localhost:5000/user/events/view/"+ str(event.id)+"\">"+ "event" +"</a>" 
     send_email_to_user(user, subject, message)
 
     # accept_invitation()
