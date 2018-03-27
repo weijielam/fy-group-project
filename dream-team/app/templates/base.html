@@ -32,6 +32,7 @@
       <li><a href="{{ url_for('admin.userlist') }}">Users</a></li>
       {% else %}
       <li><a href="{{ url_for('home.user_dashboard') }}">Dashboard</a></li>
+      <li><a href="{{ url_for('user.payment')}}">Payments</a></li>
       <li><a href="{{ url_for('user.list_events') }}">Events</a></li>
       <li><a href="{{ url_for('home.dashboard') }}">Total Raised</a></li>
       {% endif %}
@@ -47,7 +48,7 @@
         </div>
     </nav>
     <div class="wrapper">
-      {% block content %}
+      {% block body %}
       {% endblock %}
       <div class="push"></div>
     </div>

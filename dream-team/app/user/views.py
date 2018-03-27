@@ -3,6 +3,7 @@ from flask import abort, flash, redirect, render_template, url_for,request
 from flask_login import current_user, login_required
 from flask_mail import Mail, Message
 from . import user
+from forms import paymentForm
 
 from .. import db
 from app import mail
@@ -117,28 +118,64 @@ def event_livecount(id):
     return render_template('user/livecount.html', action="View",
                            id =id, event=event, title="Live Count")
 
-@user.route('/payment')
-def index():
-    return render_template('payment/index.html', key=stripe_keys['publishable_key'])
+@user.route('/user/payment', methods=['GET', 'POST'])
+@login_required
+def payment():
 
-@user.route('/charge', methods=['POST'])
-def charge():
-    # Amount in cents
-    amount = 500
+    all_events = Event.query.all()
+    event_drop_list = []
+
+    for e in all_events:
+        event_drop_list.append((e.id, e.name))
+
+    form = paymentForm()
+    form.event.choices = event_drop_list 
+
+    if form.validate_on_submit():
+        print('we did it')
+        dol_amt=int(form.dol_amount.data)
+        cent_amt=int(form.cent_amount.data)
+        pay_type=form.pay_type.data
+        whole_amt=(dol_amt*100)+cent_amt
+        # flash('Please enter numerical amount.')
+        return redirect(url_for('user.payment_redirect', amt=whole_amt, pay_type=pay_type))
+
+    return render_template('payment/payment.html', form=form)
+
+
+@user.route('/user/payment_redirect/<int:amt>/<string:pay_type>', methods=['GET', 'POST'])
+@login_required
+def payment_redirect(amt, pay_type):
+
+    user_id = current_user
+
+    return render_template('payment/payment_redirect.html', key=stripe_keys['publishable_key'], 
+        user_id=user_id, amt=amt, pay_type=pay_type)
+
+
+@user.route('/user/charge/<int:amt>/<string:pay_type>', methods=['GET', 'POST'])
+@login_required
+def charge(amt, pay_type):
+    print(amt)
+    print(pay_type)
+    print(request)
 
     customer = stripe.Customer.create(
         email='customer@example.com',
-        source=request.form['stripeToken']
+        source=request.args.get('stripeToken')
+        # source=request.form['stripeToken']
     )
 
     charge = stripe.Charge.create(
         customer=customer.id,
-        amount=amount,
+        amount=amt,
         currency='usd',
-        description='Flask Charge'
+        description='Dream team Charge'
     )
 
-    return render_template('payment/charge.html', amount=amount)
+
+
+    return render_template('payment/charge.html', amount=amt/100, cents=amt%100, pay_type=pay_type)
 
 
 

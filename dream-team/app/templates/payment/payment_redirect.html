@@ -1,0 +1,46 @@
+{% import "bootstrap/wtf.html" as wtf %}
+{% extends "base.html" %}
+{% block body %}
+  <div class="content-section">
+    <div class="center">
+      <!--<form action="{{ url_for('user.charge', amt=amt, pay_type=pay_type) }}" method="post">
+          <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                  data-key="{{ key }}"
+                  data-description="A Dream-Team Charge"
+                  data-amount="{{ amt }}"
+                  data-locale="auto"></script>
+      </form>-->
+      <script src="https://checkout.stripe.com/checkout.js"></script>
+
+<script>
+var handler = StripeCheckout.configure({
+  key: "{{key}}",
+  image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+  locale: 'auto',
+  token: function(token) {
+    // You can access the token ID with `token.id`.
+    // Get the token ID to your server-side code for use.
+    console.log(token)
+    window.location = "{{url_for('user.charge', amt=amt, pay_type=pay_type)}}" + "?stripeToken="+token.id;
+  }
+});
+
+  // Open Checkout with further options:
+  handler.open({
+    name: 'Stripe.com',
+    description: 'Dream-Team Payment',
+    zipCode: false,
+    amount: {{amt}}
+  });
+
+// Close Checkout on page navigation:
+window.addEventListener('popstate', function() {
+  handler.close();
+});
+</script>
+    </div>
+  </div>
+  <script>
+    
+  </script>
+{% endblock %}

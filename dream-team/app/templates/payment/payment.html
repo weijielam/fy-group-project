@@ -1,0 +1,19 @@
+{% import "bootstrap/wtf.html" as wtf %}
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block body %}
+	<div class="content-section">
+		<div class="center">
+			<!-- <form action="" method="post" class="form" role="form">
+				<input id="csrf_token" name="csrf_token" type="hidden" value="ImFkNzRiNDliNjExM2YxZjA5NTlhZDYzNjVmZWZhMDNmZmQyOGIxYTYi.DZl_DQ.AejRHF9cy5a00J24dF3dpQt4oxE">
+					<p class="form-group  required">
+						<label class="control-label" for="dol_amount">$</label><input class="form-control" id="dol_amount" name="dol_amount" required type="text" value=""><label class="control-label" for="cent_amount">.</label><input class="form-control" id="cent_amount" name="cent_amount" required type="text" value="">
+						<label class="control-label" for="pay_type">Type</label>
+						<select class="form-control" id="pay_type" name="pay_type" required><option value="Don">Donation</option><option value="Pl">Pledge</option><option value="Ti">Ticket</option></select>
+					</p>
+				<input class="btn btn-default" id="submit" name="submit" type="submit" value="submit">
+			</form> -->
+			{{ wtf.quick_form(form) }}
+		</div> 
+	</div>
+{% endblock %}

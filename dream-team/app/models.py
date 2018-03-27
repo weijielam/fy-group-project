@@ -111,9 +111,19 @@ class GuestList(db.Model):
 
 
 
+'''
+Create payments
+'''
+class Payments(db.Model):
+    """
+    Create payments table
+    """
+    __tablename__= 'payments'  
+    id = db.Column(db.Integer, primary_key=True)
+    amount = db.Column(db.Integer)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    payment_type = db.Column(db.String(20))
 
 
-
-
-
-
+    def __repr__(self):
+        return '<Payment: {}>'.format(self.id)

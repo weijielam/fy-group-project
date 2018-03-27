@@ -1,4 +1,9 @@
 {% extends "base.html" %}
-{% block content %}
-  <h2>Thanks, you paid <strong>$5.00</strong>!</h2>
+{% block title  %} Payment Confirmation {% endblock %}
+{% block body %}
+	<div class="content-section">
+		<div class="center">
+	  		<h2 style="text-align:center">Payment of ${{ amount }}.{{cents}} received!</h2>
+		</div>
+	</div>
 {% endblock %}
