@@ -4,6 +4,7 @@ from flask_login import current_user, login_required
 from flask_mail import Mail, Message
 from . import user
 from forms import paymentForm
+import datetime
 
 from .. import db
 from app import mail
@@ -156,7 +157,8 @@ def payment_redirect(amt, pay_type, purpose):
 @login_required
 def charge(amt, pay_type, purpose):
 
-    payment = Payments(amount=amt, user_id=current_user.id, payment_type=pay_type, purpose=purpose, date='today :)')
+    now = datetime.datetime.now()
+    payment = Payments(amount=amt, user_id=current_user.id, payment_type=pay_type, purpose=purpose, date= now.strftime("%d-%m-%Y"))
     db.session.add(payment)
     db.session.commit()
 

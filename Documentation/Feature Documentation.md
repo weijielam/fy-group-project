@@ -53,13 +53,24 @@
 
 8. I want to sent invitations to a mailing list, so that people know to come and that they are invited
 	
+	REQUIREMENTS:
+	- Admin user created
+	- User account(s) created
+	- Event to be created (**Follow 4. to create an event**)
+
 	1. Login in as admin user: admin@admin.com pass: admin2018
 	2. Click on the event tab located at the top of the dashboard
-	3. Select event and add guests to the event (see Add guests to an event.txt) 
-	4. Click "Send Email" for the event
-	5. Enter in Subject field "You are invited to this event"
-	6. Enter in Message field "You should come to the event"
-	7. Click the send button to send the invites to the mailing list
+	3. Click on an 'view' for the event you want to invite people to under the View Event column of the events
+	4. Click on the 'Invite' button under the Invite List column of the event
+	5. Select the checkboxes of the guests of the desired guests to be invited to the event
+	6. Once all guests to be invited have been selected click the "Invite Selected" button to send invites
+	7. Each invited guest should get an automated message sent to their email address with a link to the event page
+	8. Optional: 
+		- Once redirected to events page, click into 'view' for event you have invited people to. 
+		- Click on the 'Send Email' button under the Email Guestlist
+		- Fill in the subject and message fields for the subject and message you want to send your Mailing List
+		- Click the Send button to send email.
+
 
 10. I want to see the invite list
 
@@ -103,14 +114,18 @@
 14. I want to be able to send automated invitations, with link to register for the event
 
 	REQUIREMENTS:
-	- Logged in as an admin user
-	- At least one Event to be created
-	- At least one User account to be created with a valid email address
+	- Admin user created
+	- **Follow 4. to create an event**
+	- At least one user account to be created with a valid email address
 
-	1. Create an event
-	2. 
-	3. 
-
+	1. Login as admin user: admin@admin.com
+					pass: admin2018
+	2. Click on the event tab located at the top of the dashboard
+	3. Click on an 'view' under the View Event column of the events
+	4. Click on the 'Invite' button under the Invite List column of the event
+	5. Select the checkboxes of the guests of the desired guests to be invited to the event
+	6. Once all guests to be invited have been selected click the "Invite Selected" button to send invites
+	7. Each invited guest should get an automated message sent to their email address with a link to the event page
 
 20. I would like to email (legitimately) subscribed users
 	

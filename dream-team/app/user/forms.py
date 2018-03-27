@@ -4,7 +4,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, SelectField, IntegerField
 from wtforms.validators import DataRequired, NumberRange, InputRequired
 
-list_choices = [('Don', 'Donation'), ('Pl', 'Pledge')]
+list_choices = [('Donation', 'Donation'), ('Pledge', 'Pledge')]
 
 class paymentForm(FlaskForm):
 	dol_amount = IntegerField('$', validators=[InputRequired()])
