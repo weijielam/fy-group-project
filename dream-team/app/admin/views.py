@@ -6,7 +6,7 @@ from flask_mail import Mail, Message
 from . import admin
 from forms import EventForm, GuestListForm
 from email import EmailForm
-from forms import EventForm, AdminAccessForm
+from forms import EventForm, AdminAccessForm, SelectedGuestsForm
 
 from .. import db
 from app import mail
@@ -112,7 +112,6 @@ def invite_event(id):
     Invite event
     """
     check_admin()
-
     not_invited = []
     already_invd = False
 
@@ -127,6 +126,20 @@ def invite_event(id):
                 already_invd = True
         if not already_invd:
             not_invited.append(user)
+
+	if request.method == 'POST':
+		    selected_guests = request.form.getlist("invited")
+		    print("YASSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSs")
+		    for guest in selected_guests:
+			    guest_to_be_added = GuestList(guest_id=guest, event_id=id, is_attending=0)
+
+			    db.session.add(guest_to_be_added)
+			    db.session.commit()
+			    automate_invitation(id, guest)
+		
+		    flash('You have successfully added users to the event.')  
+
+		    return redirect(url_for('admin.list_events'))    
 
     return render_template('admin/events/invitelist.html', action="Invite", 
                                 users=not_invited, eid=id, title="Invite List")
@@ -239,13 +252,25 @@ def mailinglist_email(subject, body):
     with mail.connect() as conn:
         for user in users:
             msg = Message(recipients=[user.email], sender="fygptest@gmail.com",
-                          body=body, subject=subject)
+                          html=body, subject=subject)
             
             conn.send(msg)
 
         return "Sent"
 
-# Send mass email to users with message
+
+# Send email to a user with subject and message
+@login_required
+def send_email_to_user(user, subject, message):
+    with mail.connect() as conn:
+        message = message
+        subject = subject
+        msg = Message(recipients=[user.email], sender="fygptest@gmail.com", html = message, subject = subject)
+        conn.send(msg)
+        return "Sent"
+
+
+# Send mass email to users with subject and message
 @login_required
 def send_email_to_users(users, subject, message):
     with mail.connect() as conn:
@@ -253,7 +278,7 @@ def send_email_to_users(users, subject, message):
             message = message
             subject = subject
             msg = Message(recipients=[user.email], sender="fygptest@gmail.com",
-                            body = message, subject = subject)
+                            html = message, subject = subject)
             conn.send(msg)
         return "Sent"
 
@@ -406,25 +431,6 @@ def remove_RSVP(eid, gid):
     return render_template(title="Removed RSVP")
 
 
-@admin.route('/events/addguest/<int:eid>/<int:gid>', methods=['GET', 'POST'])
-@login_required
-def add_guest(eid, gid):
-    """
-    Add a guest to an event
-    """
-    check_admin()
-
-    guest = GuestList(guest_id=gid, event_id=eid, is_attending=0)
-
-    db.session.add(guest)
-    db.session.commit()
-            
-    flash('You have successfully added a user to the event.')
-
-    # redirect to the events page
-    return redirect(url_for('admin.invite_event', id=eid))
-    return render_template(title="Added Guest")
-
 
 @admin.route('/userlist', methods=['GET', 'POST'])
 @login_required
@@ -493,6 +499,27 @@ def view_event(id):
     return render_template('admin/events/viewevent.html', action="View",
                            id =id, event=event, title="View Event")
 
+#################
+
+def automate_invitation(eid, uid):
+    # event, user to invite
+    user = User.query.get_or_404(uid)
+    event = Event.query.get_or_404(eid)
+
+    subject = "You are invited to " + str(event.name)
+    message = "Hi " + str(user.username) + "! You have been invited to attend " + str(event.name) + " , click the link to RSVP " + "<a href=https://www.w3schools.com>Visit W3Schools</a>" 
+    send_email_to_user(user, subject, message)
+
+    # accept_invitation()
+    
+def automate_all_invitations(event):
+    # localhost:5000/accept_invitation()
+    event_id = event.event_id
+    guestList = GuestList.query.filter_by(event_id=eid).all() 
+    # if already attended then don't fucking send the email
+    for guest in guestList:
+        automate_invitation(guest, event)
+
 ##### View event Live Counter ####
 
 @admin.route('/events/livecount/<int:id>', methods=['GET', 'POST'])
@@ -524,3 +551,5 @@ def event_payments(id):
    
     return render_template('admin/events/viewpayments.html', action="View",
                            id =id, event=event, title="Event Payments")
+
+

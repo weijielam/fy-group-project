@@ -77,12 +77,16 @@ def forgot_password():
         if user:
             token = user.get_token()
             print ("HERE'S THE OUL TOKEN LOVE",token)
+            link_for_token = "<a href=\"http://localhost:5000/reset?token="+ str(token) + "\">" + "Visit W3Schools</a>"
+            print("link for token: ",link_for_token)
             with mail.connect() as conn:
-                message = 'Hello I see you would like to change your password! Please click this link. localhost:5000/reset?token='+token
+                message = "Hello I see you would like to change your password!"+ "Please click this link. " + link_for_token 
+    
+             
                 subject = "Password Reset"
                 msg = Message(recipients=[user.email],
                                 sender="fygptest@gmail.com",
-                              body=message,
+                              html=message,
                               subject=subject)
                 conn.send(msg)
                 flash("Email has been sent!")

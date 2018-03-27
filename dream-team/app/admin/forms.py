@@ -30,3 +30,9 @@ class GuestListForm(FlaskForm):
     """
     needs = StringField('needs')
     submit = SubmitField('Submit')
+
+class SelectedGuestsForm(FlaskForm):
+    """
+    Form for edit needs of user on guestlist
+    """
+    submit = SubmitField('Invite Selected?')
