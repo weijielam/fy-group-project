@@ -123,6 +123,8 @@ class Payments(db.Model):
     amount = db.Column(db.Integer)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     payment_type = db.Column(db.String(20))
+    purpose = db.Column(db.String(100))
+    date = db.Column(db.String(20))
 
 
     def __repr__(self):

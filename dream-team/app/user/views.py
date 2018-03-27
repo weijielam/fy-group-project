@@ -7,7 +7,7 @@ from forms import paymentForm
 
 from .. import db
 from app import mail
-from ..models import Event, GuestList, User
+from ..models import Event, GuestList, User, Payments
 from PIL import Image 
 import stripe
 import os
@@ -123,13 +123,13 @@ def event_livecount(id):
 def payment():
 
     all_events = Event.query.all()
-    event_drop_list = []
+    event_drop_list = [(-1, 'General')]
 
     for e in all_events:
-        event_drop_list.append((e.id, e.name))
+        event_drop_list.append((e.id, 'Event: ' + e.name))
 
     form = paymentForm()
-    form.event.choices = event_drop_list 
+    form.purpose.choices = event_drop_list 
 
     if form.validate_on_submit():
         print('we did it')
@@ -137,28 +137,28 @@ def payment():
         cent_amt=int(form.cent_amount.data)
         pay_type=form.pay_type.data
         whole_amt=(dol_amt*100)+cent_amt
+        purpose = form.purpose.data
         # flash('Please enter numerical amount.')
-        return redirect(url_for('user.payment_redirect', amt=whole_amt, pay_type=pay_type))
+        return redirect(url_for('user.payment_redirect', amt=whole_amt, pay_type=pay_type, purpose=purpose))
 
     return render_template('payment/payment.html', form=form)
 
 
-@user.route('/user/payment_redirect/<int:amt>/<string:pay_type>', methods=['GET', 'POST'])
+@user.route('/user/payment_redirect/<int:amt>/<string:pay_type>/<string:purpose>', methods=['GET', 'POST'])
 @login_required
-def payment_redirect(amt, pay_type):
-
-    user_id = current_user
+def payment_redirect(amt, pay_type, purpose):
 
     return render_template('payment/payment_redirect.html', key=stripe_keys['publishable_key'], 
-        user_id=user_id, amt=amt, pay_type=pay_type)
+        amt=amt, pay_type=pay_type, purpose=purpose)
 
 
-@user.route('/user/charge/<int:amt>/<string:pay_type>', methods=['GET', 'POST'])
+@user.route('/user/charge/<int:amt>/<string:pay_type>/<string:purpose>', methods=['GET', 'POST'])
 @login_required
-def charge(amt, pay_type):
-    print(amt)
-    print(pay_type)
-    print(request)
+def charge(amt, pay_type, purpose):
+
+    payment = Payments(amount=amt, user_id=current_user.id, payment_type=pay_type, purpose=purpose, date='today :)')
+    db.session.add(payment)
+    db.session.commit()
 
     customer = stripe.Customer.create(
         email='customer@example.com',
@@ -173,9 +173,9 @@ def charge(amt, pay_type):
         description='Dream team Charge'
     )
 
+    user_name = current_user.first_name + ' ' + current_user.last_name
 
-
-    return render_template('payment/charge.html', amount=amt/100, cents=amt%100, pay_type=pay_type)
+    return render_template('payment/charge.html', amount=amt/100, cents=amt%100, pay_type=pay_type, purpose=purpose, user_name=user_name)
 
 
 

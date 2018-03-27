@@ -10,5 +10,5 @@ class paymentForm(FlaskForm):
 	dol_amount = IntegerField('$', validators=[InputRequired()])
 	cent_amount = IntegerField('.', validators=[InputRequired(), NumberRange(min=0, max=99, message="please enter a number between 0 and 99")])
 	pay_type = SelectField('Type', choices = list_choices, validators=[DataRequired()])
-	event = SelectField('Event', coerce=int)
+	purpose = SelectField('Purpose', coerce=int)
 	submit = SubmitField('Submit')
