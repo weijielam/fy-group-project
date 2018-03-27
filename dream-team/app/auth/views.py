@@ -55,9 +55,11 @@ def login():
 
             # redirect to the dashboard page after login
             if user.is_admin:
-                return redirect(url_for('home.admin_dashboard'))
+                return redirect(request.args.get("next") or url_for("home.admin_dashboard"))
+                # return redirect(url_for('home.admin_dashboard'))
             else:
-            	return redirect(url_for('home.dashboard'))
+                return redirect(request.args.get("next") or url_for("home.dashboard"))
+            	# return redirect(url_for('home.dashboard'))
 
         # when login details are incorrect
         else:
@@ -146,6 +148,30 @@ def settings():
 
 
     return render_template('auth/settings.html', form=form, form2=form2, user=user, title='Settings') 
+
+
+# @login_manager.unauthorized_handler
+# def handle_needs_login():
+#     flash("You have to be logged in to access this page.")
+#     return redirect(url_for('account.login', next=request.path))
+
+# @login_manager.unauthorized_handler
+# def handle_needs_login():
+#     flash("You have to be logged in to access this page.")
+#     return redirect(url_for('account.login', next=request.path))
+
+# def redirect_dest(home):
+#     dest_url = request.args.get('next')
+#     if not dest_url:
+#         dest_url = url_for(home)
+#     return redirect(dest_url)
+
+# def redirect_dest(home):
+#     dest_url = request.args.get('next')
+#     if not dest_url:
+#         dest_url = url_for(home)
+#     return redirect(dest_url)
+
 
 ######### END SETTINGS TAB CODE ############    
 

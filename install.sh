@@ -15,10 +15,17 @@ pip install virtualenv
 # CREATE DATABASE dreamteam_db;
 # GRANT ALL PRIVILEGES ON dreamteam_db . * TO 'dt_admin'@'localhost';
 
+mysql -u root -p << EOF
+CREATE USER 'dt_admin'@'localhost' IDENTIFIED BY 'dt2016';
+CREATE DATABASE dreamteam_db;
+GRANT ALL PRIVILEGES ON dreamteam_db . * TO 'dt_admin'@'localhost';
+EOF
+
 
 source Envs/my-venv/bin/activate
 pip install -r requirements.txt
 
 export FLASK_CONFIG=development
 export FLASK_APP=dream-team/run.py
+flask db migrate
 flask db upgrade
