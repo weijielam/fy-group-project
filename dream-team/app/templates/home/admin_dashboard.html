@@ -13,6 +13,7 @@
                     <h3>Payment breakdown</h3>
                     <hr class="intro-divider">
                     <div class="center">
+                        {% if payments %}
                       <table class="table table-striped table-bordered">
                         <thead>
                           <tr>
@@ -35,6 +36,9 @@
                         {% endfor %}
                         </tbody>
                       </table>
+                      {% else %}
+                      <h3> No payments recorded yet </h3>
+                      <% endif %>
                   </div>
                 </div>
             </div>
