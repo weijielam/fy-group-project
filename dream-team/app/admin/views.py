@@ -354,7 +354,7 @@ def event_RSVPlist(id):
     guestList = GuestList.query.filter_by(event_id=id).all()
     for guest in guestList:
 	user = User.query.get_or_404(guest.guest_id)
-        if guest.is_attending == True and not user.is_admin():
+        if guest.is_attending == True and not user.is_admin:
             guests.append(user)
    
 
