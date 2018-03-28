@@ -400,7 +400,7 @@ def set_attending(eid, gid):
             guest.is_attending = True
             db.session.commit()
             
-    flash('You have successfully rset a guest as attending this event.')
+    flash('You have successfully set a guest as attending this event.')
 
     # redirect to the events page
     return redirect(url_for('admin.event_guestlist', id=eid))
