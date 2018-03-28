@@ -39,7 +39,8 @@ def admin_dashboard():
         cents = cents + (p.amount%100)
         user = User.query.get_or_404(p.user_id)
         name = user.first_name + ' ' + user.last_name
-        if p.amount%100 < 10:
+	temp_cents = p.amount%100
+        if temp_cents < 10:
             amt_str = str(p.amount/100) + '.0' + str(p.amount%100)
         else:
             amt_str = str(p.amount/100) + '.' + str(p.amount%100)
