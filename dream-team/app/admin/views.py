@@ -124,7 +124,7 @@ def invite_event(id):
         for guest in guests:
             if user.id == guest.guest_id:
                 already_invd = True
-        if not already_invd and user.is_admin == False:
+        if not already_invd :
             not_invited.append(user)
 
 	if request.method == 'POST':
@@ -330,7 +330,7 @@ def event_guestlist(id):
     guestList = GuestList.query.filter_by(event_id=id).all()
     for guest in guestList:
 	user = User.query.get_or_404(guest.guest_id)
-	if not guest.is_attending and not user.is_admin:	
+	if not guest.is_attending:
 	        guests.append(user)
    
 
@@ -353,7 +353,7 @@ def event_RSVPlist(id):
     guestList = GuestList.query.filter_by(event_id=id).all()
     for guest in guestList:
 	user = User.query.get_or_404(guest.guest_id)
-        if guest.is_attending == True and not user.is_admin:
+        if guest.is_attending == True:
             guests.append(user)
    
 
