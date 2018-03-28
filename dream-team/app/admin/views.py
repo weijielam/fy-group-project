@@ -165,7 +165,7 @@ def needs_event(eid, uid):
         flash('You have successfully edited a users needs.')
 
         # redirect to the events page
-        return redirect(url_for(admin.event_RSVP))
+        return event_RSVPlist(eid)
 
     user.needs = form.needs.data 
     return render_template('admin/events/userneeds.html', action="Needs",                      
@@ -354,7 +354,7 @@ def event_RSVPlist(id):
     guestList = GuestList.query.filter_by(event_id=id).all()
     for guest in guestList:
 	user = User.query.get_or_404(guest.guest_id)
-        if guest.is_attending == True and not user.is_admin():
+        if guest.is_attending == True and not user.is_admin:
             guests.append(user)
    
 
