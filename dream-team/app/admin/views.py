@@ -165,7 +165,7 @@ def needs_event(eid, uid):
         flash('You have successfully edited a users needs.')
 
         # redirect to the events page
-        return redirect(url_for('admin.event_guestlist', id=eid))
+        return redirect(url_for(admin.event_RSVP))
 
     user.needs = form.needs.data 
     return render_template('admin/events/userneeds.html', action="Needs",                      
