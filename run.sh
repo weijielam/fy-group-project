@@ -3,8 +3,11 @@ sudo pip install -r requirements.txt    # Install pip libraries
 
 export FLASK_APP=dream-team/run.py      # set up environment variables for the Flask Appplication
 export FLASK_CONFIG=development
-
-flask db migrate                        # update database
-flask db upgrade                        # 
-
-PUBLISHABLE_KEY=pk_test_6pRNASCoBOKtIshFeQd4XMUh SECRET_KEY=sk_test_BQokikJOvBiI2HlWgH4olfQ2 flask run
+export PUBLISHABLE_KEY=pk_test_6pRNASCoBOKtIshFeQd4XMUh 
+export SECRET_KEY=sk_test_BQokikJOvBiI2HlWgH4olfQ2 
+# PUBLISHABLE_KEY=pk_test_6pRNASCoBOKtIshFeQd4XMUh SECRET_KEY=sk_test_BQokikJOvBiI2HlWgH4olfQ2 flask db migrate         # update database
+# PUBLISHABLE_KEY=pk_test_6pRNASCoBOKtIshFeQd4XMUh SECRET_KEY=sk_test_BQokikJOvBiI2HlWgH4olfQ2 flask db upgrade     # 
+# PUBLISHABLE_KEY=pk_test_6pRNASCoBOKtIshFeQd4XMUh SECRET_KEY=sk_test_BQokikJOvBiI2HlWgH4olfQ2 flask run
+flask db migrate
+flask db upgrade
+flask run
