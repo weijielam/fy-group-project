@@ -1,9 +1,16 @@
-<!-- app/templates/admin/events/livecount.html -->
+
 
 {% import "bootstrap/utils.html" as utils %}
 {% extends "base.html" %}
 {% block title %}Event{% endblock %}
 {% block body %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="refresh" content="20" />
+</head>
+<body>
+
 <div class="content-section">
   <div class="outer">
     <div class="middle">
@@ -13,24 +20,15 @@
         <br/>
         <h1 style="text-align:center;">Live Count for {{ event.name }}</h1>
         <hr class="intro-divider">
-        <h2 style="text-align:center;">$ Amount Raised</h2>
           <div class="center">
-           
-                    
-    
             <table class="table table-striped table-bordered">
               <thead>
-                <h3> Most Recent Donors </h3>
-                <th width="20%"> Name </th>
-                <th width="20%"> Amount</th>
-                </thead>
-            </table>
-            <h3> Top Donors </h3>
-            <table class="table table-striped table-bordered">
-              <thead>
-                <th width="20%"> Name </th>
-                <th width="20%"> Amount</th>
-                </thead>
+                <tr>
+                  <th width="20%"> Name </th>
+                  <th wdith="20%"> Type</th>
+                  <th width="20%"> Amount</th>
+                </tr>
+              </thead>
             </table>
             <div style="text-align: center">
               <a href="{{ url_for('admin.list_events') }}" class="btn btn-default btn-lg">
@@ -41,8 +39,10 @@
           </div>
         <tr class="intro-divider"></tr>
       </div>
-  </div>
     </div>
   </div>
 </div>
+
+</body>
+</html>
 {% endblock %}
