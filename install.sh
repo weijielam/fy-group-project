@@ -22,13 +22,15 @@ GRANT ALL PRIVILEGES ON dreamteam_db . * TO 'dt_admin'@'localhost';
 EOF
 
 
-source Envs/my-venv/bin/activate
+
 pip install -r requirements.txt
 
 # set up environment variables for the Flask Appplication
 export FLASK_CONFIG=development
+
 export FLASK_APP=dream-team/run.py      
 export PUBLISHABLE_KEY=pk_test_6pRNASCoBOKtIshFeQd4XMUh 
 export SECRET_KEY=sk_test_BQokikJOvBiI2HlWgH4olfQ2 
 flask db migrate
 flask db upgrade
+
