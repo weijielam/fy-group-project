@@ -10,7 +10,7 @@ from forms import EventForm, AdminAccessForm, SelectedGuestsForm
 
 from .. import db
 from app import mail
-from ..models import Event, GuestList, User
+from ..models import Event, GuestList, User, Payments
 from PIL import Image 
 import webbrowser
 import pathlib
@@ -532,9 +532,41 @@ def event_livecount(id):
 
     add_event = False
     event = Event.query.get_or_404(id)
-   
+
+    payments = Payments.query.filter_by(purpose=id).all()
+
+    cash = 0
+    cents = 0
+    data = []
+
+    for p in payments:
+    	temp = []
+    	cash = cash + p.amount/100
+    	cents = cents +p.amount%100
+    	user = User.query.get_or_404(p.user_id)
+    	temp.append(user.first_name + ' ' + user.last_name)
+    	temp.append(p.payment_type)
+    	if p.amount%100 < 10:
+    		temp.append(str(p.amount/100) + '.0' + str(p.amount%100))
+    	else:
+    		temp.append(str(p.amount/100) + '.' + str(p.amount%100))
+        data.append(temp)
+
+    index = len(data)-1
+    temp_data = []
+    stop = index - 9
+    if stop < 0:
+	stop = 0
+    while index >= stop:
+        temp_data.append(data[index])
+        index=index-1
+    data = temp_data
+    cash = cash + cents/100
+    cents = cents%100
+
     return render_template('admin/events/livecount.html', action="View",
-                           id =id, event=event, title="Live Count")
+                           id =id, event=event, cash=cash, cents=cents, payments=data,
+                           title="Live Count")
 
 ##### View event Payments ####
 

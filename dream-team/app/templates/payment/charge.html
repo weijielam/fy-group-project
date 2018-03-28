@@ -3,7 +3,11 @@
 {% block body %}
 	<div class="content-section">
 		<div class="center">
+			{% if cents < 10 %}
+	  		<h2 style="text-align:center">Thank you {{ user_name }}. Payment of ${{ amount }}.0{{cents}} received!</h2>
+	  		{% else %}
 	  		<h2 style="text-align:center">Thank you {{ user_name }}. Payment of ${{ amount }}.{{cents}} received!</h2>
+	  		{% endif %}
 	  	</div>
 	</div>
 	<div style="text-align: center">
