@@ -3,14 +3,16 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
+from wtforms_components import TimeField, DateField
 
 class EventForm(FlaskForm):
     """
     Form for admin to add or edit a Event
     """
     name = StringField('Name', validators=[DataRequired()])
-    timeD = StringField('Time', validators=[DataRequired()])
-    date = StringField('Date', validators=[DataRequired()])
+    # timeD = StringField('Time', validators=[DataRequired()])
+    timeD = TimeField('Time',validators=[DataRequired()])
+    date = DateField('Date', validators=[DataRequired()])
     location = StringField('Location', validators=[DataRequired()])
     description = StringField('Description', validators=[DataRequired()])
     menu = StringField('Menu name eg Menu1.png')

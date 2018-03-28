@@ -74,7 +74,7 @@
             </div>
             <div class="center">
               {% if not guest_attending %}
-              <h1 style="text-align:center;">RSVP: Unattending</h1>
+              <h1 style="text-align:center;">RSVP: Cancelled</h1>
               <div style="text-align: center">
                   <a href="{{ url_for('user.set_attendance', id = event.id) }}" class="btn btn-default btn-lg">
                     Attend
@@ -84,7 +84,7 @@
               <h1 style="text-align:center;">RSVP: Attending</h1>
               <div style="text-align: center">
                   <a href="{{ url_for('user.set_attendance', id = event.id) }}" class="btn btn-default btn-lg">
-                    Unattend
+                    Cancel
                   </a>
               </div>
               {% endif %}     
