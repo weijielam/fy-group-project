@@ -26,11 +26,19 @@ def view_event(id):
     """
     view an event
     """
-
+    print("current user id:",current_user.id)
     event = Event.query.get_or_404(id)
-   
-    return render_template('user/viewevent.html', action="View",
-                           id =id, event=event, title="View Event")
+    guest_attending = True    
+    guestList = GuestList.query.filter_by(event_id=id, guest_id=current_user.id).all()
+    for guest in guestList:
+        print("guest.guest_id: " + str(guest.guest_id))
+        # print("gid: " + str(gid))
+        # if guest.guest_id == gid:
+        print(guest.is_attending)            
+        # db.session.commit()
+        print("what")
+        guest_attending = guest.is_attending
+    return render_template('user/viewevent.html', action="View", id =id, event=event, uid= current_user.id, guest_attending = guest_attending, title="View Event")
 
 
 ##### view list of all events #####
@@ -180,9 +188,16 @@ def charge(amt, pay_type, purpose):
     return render_template('payment/charge.html', amount=amt/100, cents=amt%100, pay_type=pay_type, purpose=purpose, user_name=user_name)
 
 
-
-
-
+@login_required
+@user.route('/user/events/view/<int:id>/attend', methods=['GET', 'POST'])
+def set_attendance(id):
+    guestList = GuestList.query.filter_by(event_id=id, guest_id=current_user.id).all()
+    for guest in guestList:
+        print("guest.guest_id: " + str(guest.guest_id))
+        guest.is_attending = not(guest.is_attending)
+        db.session.commit()
+    return view_event(id)
+    
 
 
 
