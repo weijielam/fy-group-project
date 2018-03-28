@@ -71,13 +71,13 @@
                 {% if guest_attending %}
                 <div style="text-align: center">
                     <a href="{{ url_for('user.set_attendance', id = event.id) }}" class="btn btn-default btn-lg">
-                      Attending
+                      Set Not Attending
                     </a>
                 </div>
                 {% else %}
                 <div style="text-align: center">
                     <a href="{{ url_for('user.set_attendance', id = event.id) }}" class="btn btn-default btn-lg">
-                      Not Attending
+                      Set Attending
                     </a>
                 </div>
                 {% endif %}     
