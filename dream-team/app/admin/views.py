@@ -495,7 +495,6 @@ def view_event(id):
 
     add_event = False
     event = Event.query.get_or_404(id)
-   
     return render_template('admin/events/viewevent.html', action="View",
                            id =id, event=event, title="View Event")
 

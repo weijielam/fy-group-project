@@ -72,6 +72,24 @@
                 Return
               </a>
             </div>
+            <div class="center">
+              {% if not guest_attending %}
+              <h1 style="text-align:center;">RSVP: Unattending</h1>
+              <div style="text-align: center">
+                  <a href="{{ url_for('user.set_attendance', id = event.id) }}" class="btn btn-default btn-lg">
+                    Attend
+                  </a>
+              </div>
+              {% else %}
+              <h1 style="text-align:center;">RSVP: Attending</h1>
+              <div style="text-align: center">
+                  <a href="{{ url_for('user.set_attendance', id = event.id) }}" class="btn btn-default btn-lg">
+                    Unattend
+                  </a>
+              </div>
+              {% endif %}     
+              <br/>
+            </div>
           </div>
         <tr class="intro-divider"></tr>
       </div>
