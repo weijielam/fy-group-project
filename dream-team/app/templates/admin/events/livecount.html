@@ -19,9 +19,14 @@
         {{ utils.flashed_messages() }}
         <br/>
         <h1 style="text-align:center;">Live Count for {{ event.name }}</h1>
-        <h2 style="text-align:center;">€{{ cash }}.{{ cents }}</h2>
+	{% if cents < 10 %}        
+	<h2 style="text-align:center;">€{{ cash }}.0{{ cents }}</h2>
+	{% else %}
+	<h2 style="text-align:center;">€{{ cash }}.{{ cents }}</h2>
+	{% endif %}
         <hr class="intro-divider">
           <div class="center">
+	    {% if payments %}
             <table class="table table-striped table-bordered">
               <thead>
                 <tr>
@@ -38,6 +43,9 @@
               </tr>
               {% endfor %}
             </table>
+	    {% else %}
+	    <h3 style="text-align:center;">No payments recoreded yet</h3>
+	    {% endif %}
             <div style="text-align: center">
               <a href="{{ url_for('admin.list_events') }}" class="btn btn-default btn-lg">
                 <i class="fa fa-mail-reply"></i>
