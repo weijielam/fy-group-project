@@ -79,7 +79,7 @@ def forgot_password():
         if user:
             token = user.get_token()
             print ("HERE'S THE OUL TOKEN LOVE",token)
-            link_for_token = "<a href=\"http://localhost:5000/reset?token="+ str(token) + "\">" + "Visit W3Schools</a>"
+            link_for_token = "<a href=\"http://localhost:5000/reset?token="+ str(token) + "\">" + "Reset Password</a>"
             print("link for token: ",link_for_token)
             with mail.connect() as conn:
                 message = "Hello I see you would like to change your password!"+ "Please click this link. " + link_for_token 
@@ -101,6 +101,7 @@ def forgot_password():
         form = ResetPasswordSubmit()
         if form.validate_on_submit():
             verified_result.password=form.password.data
+            verified_result.is_subscribed=verified_result.is_subscribed
             db.session.commit()
             
             flash("Password updated successfully")
@@ -132,13 +133,15 @@ def settings():
     user = User.query.get(id)
     #Settings tab for both users and admins
     form = ResetPasswordSubmit()
-    if form.validate_on_submit():
+    if form.submit.data and form.validate():
+            print("why the fuck is it form1")
             user.password=form.password.data
             db.session.commit()
             flash("Password updated successfully")
 
     form2 = Unsubscribe()
-    if form2.validate_on_submit():
+    if form2.unsubscribe.data and form2.validate():
+            print("why the fuck is it form2")
             user.is_subscribed =  not user.is_subscribed
             db.session.commit()
             if user.is_subscribed: 

@@ -48,8 +48,14 @@ def list_events():
     """
     List all events
     """
+    
+    user_id = current_user.id
+    gl = GuestList.query.filter_by(guest_id=user_id)
+    events = []
 
-    events = Event.query.all()
+    for item in gl:
+	events.append(Event.query.get_or_404(item.event_id))
+    
 
     return render_template('user/events.html',
                            events=events, title="Events")
@@ -84,8 +90,9 @@ def event_guestlist(id):
 
     guestList = GuestList.query.filter_by(event_id=id).all()
     for guest in guestList:
-	if not guest.is_attending:	
-	        guests.append(User.query.get_or_404(guest.guest_id))
+	user = User.query.get_or_404(guest.guest_id)
+	if not guest.is_attending and not user.is_admin:	
+	        guests.append(user)
 
     return render_template('user/guestList.html', action="View",
                            guests=guests, gl=guestList, id=id, title="Guest List")
@@ -105,8 +112,9 @@ def event_RSVPlist(id):
 
     guestList = GuestList.query.filter_by(event_id=id).all()
     for guest in guestList:
-        if guest.is_attending == True:
-            guests.append(User.query.get_or_404(guest.guest_id))
+	user = User.query.get_or_404(guest.guest_id)
+        if guest.is_attending == True and not user.is_admin:
+            guests.append(user)
 
     return render_template('user/RSVPList.html', action="View",
                            guests=guests, gl=guestList, id=id, title="Guest List")
@@ -123,8 +131,39 @@ def event_livecount(id):
 
     add_event = False
     event = Event.query.get_or_404(id)
+
+    payments = Payments.query.filter_by(purpose=id).all()
+
+    cash = 0
+    cents = 0
+    data = []
+
+    for p in payments:
+    	temp = []
+    	cash = cash + p.amount/100
+    	cents = cents +p.amount%100
+    	user = User.query.get_or_404(p.user_id)
+    	temp.append(user.first_name + ' ' + user.last_name)
+    	temp.append(p.payment_type)
+    	if p.amount%100 < 10:
+    		temp.append(str(p.amount/100) + '.0' + str(p.amount%100))
+    	else:
+    		temp.append(str(p.amount/100) + '.' + str(p.amount%100))
+        data.append(temp)
+
+    index = len(data)-1
+    temp_data = []
+    stop = index - 9
+    if stop < 0:
+	stop = 0
+    while index >= stop:
+        temp_data.append(data[index])
+        index=index-1
+    data = temp_data
+    cash = cash + cents/100
+    cents = cents%100
    
-    return render_template('user/livecount.html', action="View",
+    return render_template('user/livecount.html', action="View", cash=cash, cents=cents, payments=data,
                            id =id, event=event, title="Live Count")
 
 @user.route('/user/payment', methods=['GET', 'POST'])

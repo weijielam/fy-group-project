@@ -9,7 +9,13 @@
             <div class="col-lg-12">
                 <div class="intro-message">
                     <h1>Total Amount Raised</h1>
-                    <h2>€{{cash}}.{{cents}}</h2>
+		    {% if cents < 10 %}
+                    <h2>€{{cash}}.0{{cents}}</h2>
+		    {% elif cents%10 == 0 %}
+		    <h2>€{{cash}}.{{cents}}0</h2>
+		    {% else %}
+		    <h2>€{{cash}}.0{{cents}}</h2>
+		    {% endif %}
                     <h3>Payment breakdown</h3>
                     <hr class="intro-divider">
                     <div class="center">

@@ -77,11 +77,12 @@
 	5. Select the checkboxes of the guests you wish to invite or select all guests using the 'Select all' box.
 	6. Click the 'invite selected' button at the bottom
 	7. Each invited guest should get an automated message sent to their email address with a link to the event page
-	8. Optional: 
+	8. Optional (send email to all users in Guestlist): 
 		- Once redirected to events page, click into 'view' for event you have invited people to. 
 		- Click on the 'Send Email' button under the Email Guestlist
 		- Fill in the subject and message fields for the subject and message you want to send your Mailing List
 		- Click the Send button to send email.
+	9. Users are then able to view the event and set their RSVP status.
 
 
 10. I want to see the invite list
@@ -139,7 +140,8 @@
 	4. Click on the 'Invite' button under the Invite List column of the event
 	5. Select the checkboxes of the guests of the desired guests to be invited to the event
 	6. Once all guests to be invited have been selected click the "Invite Selected" button to send invites
-	7. Each invited guest should get an automated message sent to their email address with a link to the event page
+	7. Each invited guest should get an automated message sent to their email address with a link to the event page, user can then set their attendance from the event page
+
 
 20. I would like to email (legitimately) subscribed users
 	
