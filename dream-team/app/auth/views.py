@@ -101,6 +101,7 @@ def forgot_password():
         form = ResetPasswordSubmit()
         if form.validate_on_submit():
             verified_result.password=form.password.data
+            verified_result.is_subscribed=verified_result.is_subscribed
             db.session.commit()
             
             flash("Password updated successfully")
@@ -132,13 +133,15 @@ def settings():
     user = User.query.get(id)
     #Settings tab for both users and admins
     form = ResetPasswordSubmit()
-    if form.validate_on_submit():
+    if form.submit.data and form.validate():
+            print("why the fuck is it form1")
             user.password=form.password.data
             db.session.commit()
             flash("Password updated successfully")
 
     form2 = Unsubscribe()
-    if form2.validate_on_submit():
+    if form2.unsubscribe.data and form2.validate():
+            print("why the fuck is it form2")
             user.is_subscribed =  not user.is_subscribed
             db.session.commit()
             if user.is_subscribed: 

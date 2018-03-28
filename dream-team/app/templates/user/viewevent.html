@@ -66,29 +66,28 @@
                 </tr>
               </tbody>
             </table>
+            <div class="center">
+                <h1 style="text-align:center;">RSVP</h1>
+                {% if guest_attending %}
+                <div style="text-align: center">
+                    <a href="{{ url_for('user.set_attendance', id = event.id) }}" class="btn btn-default btn-lg">
+                      Attending
+                    </a>
+                </div>
+                {% else %}
+                <div style="text-align: center">
+                    <a href="{{ url_for('user.set_attendance', id = event.id) }}" class="btn btn-default btn-lg">
+                      Not Attending
+                    </a>
+                </div>
+                {% endif %}     
+                <br/>
+              </div>
             <div style="text-align: center">
               <a href="{{ url_for('user.list_events') }}" class="btn btn-default btn-lg">
                 <i class="fa fa-mail-reply"></i>
                 Return
               </a>
-            </div>
-            <div class="center">
-              {% if not guest_attending %}
-              <h1 style="text-align:center;">RSVP: Cancelled</h1>
-              <div style="text-align: center">
-                  <a href="{{ url_for('user.set_attendance', id = event.id) }}" class="btn btn-default btn-lg">
-                    Attend
-                  </a>
-              </div>
-              {% else %}
-              <h1 style="text-align:center;">RSVP: Attending</h1>
-              <div style="text-align: center">
-                  <a href="{{ url_for('user.set_attendance', id = event.id) }}" class="btn btn-default btn-lg">
-                    Cancel
-                  </a>
-              </div>
-              {% endif %}     
-              <br/>
             </div>
           </div>
         <tr class="intro-divider"></tr>
