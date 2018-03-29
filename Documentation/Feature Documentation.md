@@ -205,9 +205,9 @@
 	1. Log in as a user 
 	2. Click on the 'Donate' tab at the top
 	3. Enter the amount to donate in euros and cents and 
-	   the type of donation and purpose (ie is it for a specific event or just a general donation)
+	   the type of donation and purpose (i.e. is it for a specific event or just a general donation)
 	4. Click submit and wait to be redirect to a payment page
-	6. Enter in your email plus your credit card detais
+	6. Enter in your email plus the stripe test credit card details (Card Number: 4242 4242 4242 4242, Date: any date in the future, CVV: any 3 digit combination)
 	7. Click pay
 	8. Admins can see all payments under the 'total raised' tab, See feature 54.
 
