@@ -36,7 +36,6 @@ exit()
 ```
 
 sudo bash run.sh
-flask run
 ```
 5. Open up browser at localhost:5000
 
