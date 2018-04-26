@@ -16,6 +16,7 @@ cd fygroupproject
 sudo bash install.sh
 Create an SQL password for root user when prompted
 Enter SQL root user password when prompted
+flask db upgrade
 ```
 3. Create an admin account 
 ```
@@ -35,6 +36,7 @@ exit()
 ```
 
 sudo bash run.sh
+flask run
 ```
 5. Open up browser at localhost:5000
 
