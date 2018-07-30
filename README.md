@@ -6,7 +6,7 @@ Group 7: Final Year Group Project
 ```
 sudo apt install git -y
 enter your computer password if prompted
-git clone https://github.com/weijielam/fygroupproject.git
+git clone https://github.com/jmulcah/fygroupproject.git
 ```
 
 2. Run installation scripts
